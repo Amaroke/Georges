@@ -5,7 +5,6 @@ import xml.etree.ElementTree
 import zipfile
 from pathlib import Path
 from statistics import mean
-
 import mysql.connector
 import mysql.connector
 import openpyxl
@@ -14,17 +13,22 @@ from PIL import ImageStat
 
 
 def connexionBDD():
-    config = configparser.RawConfigParser()
-    config.read('config.ini')
     try:
+        # Création de l'objet de configuration pour lire le fichier config.ini.
+        config = configparser.RawConfigParser()
+        config.read('config.ini')
+
+        # Connexion à la base de données en utilisant les informations de connexion
+        # lues dans le fichier config.ini.
         conn = mysql.connector.connect(
             host=config.get('settings', 'host'),
             user=config.get('settings', 'username'),
             passwd=config.get('settings', 'password'),
         )
+
         return conn
-    except mysql.connector.Error as e:
-        print(f"Error connecting to the database: {e}")
+    except Exception as e:
+        print("Erreur lors de la connexion à la BDD: " + str(e))
         sys.exit(1)
 
 
@@ -34,11 +38,20 @@ def creationBDD(conn):
         config = configparser.RawConfigParser()
         config.read('config.ini')
         db_name = config.get('settings', 'database')
+
+        # Suppression de la base de données si elle existe déjà.
         cursor.execute("DROP DATABASE IF EXISTS " + db_name)
+
+        # Création de la base de données.
         cursor.execute("CREATE DATABASE " + db_name)
+
+        # Utilisation de la base de données créée.
+        cursor.execute("USE " + db_name)
+
+        # Exécution du script SQL pour initialiser la structure de la base de données.
         with open("bdd.sql") as sql:
-            cursor.execute("USE " + db_name)
             cursor.execute(sql.read())
+
     except Exception as e:
         print("Erreur lors de la création de la BDD." + str(e))
         sys.exit(1)
@@ -53,15 +66,15 @@ def calcul_score_proprete(image):
         sys.exit(1)
 
 
-def insererPageBDD(conn, id_image, id_dossier, score_image, triplet, hg, hm, hd, bg, bm, bd):
+def insererPageBDD(conn, id_image, id_fascicule, niveau_gris, triplet, hg, hm, hd, bg, bm, bd):
     cursor = conn.cursor()
-    config = configparser.RawConfigParser()
+    config = configparser.ConfigParser()
     config.read('config.ini')
     db_name = config.get('settings', 'database')
     cursor.execute("USE " + db_name)
     try:
         cursor.execute("""INSERT INTO page (page_id, fascicule_id, niveau_gris) VALUES (%s, %s, %s);""",
-                       (id_image, id_dossier, score_image))
+                       (id_image, id_fascicule, niveau_gris))
         cursor.execute("""INSERT INTO triplet (page_id, point_noir, point_blanc, gamma) VALUES (%s, %s, %s, %s);""",
                        (id_image, triplet[0], triplet[1], triplet[2]))
         cursor.execute(
@@ -70,19 +83,22 @@ def insererPageBDD(conn, id_image, id_dossier, score_image, triplet, hg, hm, hd,
             (id_image, hg, hm, hd, bg, bm, bd))
         conn.commit()
     except mysql.connector.errors.DataError as e:
-        print(e, " : ", id_image, " : ", score_image)
+        print(e, " : ", id_image, " : ", niveau_gris)
         conn.rollback()
 
 
 def decoupe_mot(word):
+    # Calcul des décalages à appliquer aux coordonnées du mot.
     decalage_gauche = int(word.attrib.get("width")) / 3
     decalage_haut = int(word.attrib.get("height")) / 3
 
+    # Calcul des coordonnées de la zone découpée.
     gauche = int(word.attrib.get("left")) - decalage_gauche
     haut = int(word.attrib.get("top")) - decalage_haut
     droite = int(word.attrib.get("right"))
     bas = int(word.attrib.get("bottom"))
 
+    # Vérification des limites de la zone découpée.
     if gauche >= droite:
         droite += 20
     if haut >= bas:
@@ -92,18 +108,21 @@ def decoupe_mot(word):
 
 
 def decoupe_matrice(word, im):
+    # Calcul des décalages à appliquer aux coordonnées du mot
     decalage_gauche = int(word.attrib.get("width")) / 3
     decalage_haut = int(word.attrib.get("height")) / 3
 
+    # Calcul des coordonnées de la zone découpée
     gauche = int(word.attrib.get("left")) - decalage_gauche
     haut = int(word.attrib.get("top")) - decalage_haut
     droite = int(word.attrib.get("right"))
     bas = int(word.attrib.get("bottom"))
 
+    # Vérification des limites de la zone découpée
     if gauche >= droite:
-        droite += 20
+        droite = gauche + 20
     if haut >= bas:
-        bas += 20
+        bas = haut + 20
 
     return im.crop((gauche, haut, droite, bas))
 
@@ -125,7 +144,7 @@ def decoupe_matrice_2_par_3(word, im):
 
 
 def score_global_matrice(tab_score_mots_matrice):
-    somme_hg, somme_hm, somme_hd, somme_bg, somme_bm, somme_bd = ([] for _ in range(6))
+    somme_hg, somme_hm, somme_hd, somme_bg, somme_bm, somme_bd = [], [], [], [], [], []
     for mot in tab_score_mots_matrice:
         somme_hg.append(mot[0])
         somme_hm.append(mot[1])
@@ -208,10 +227,13 @@ def remplirBDDAnalogie(conn):
     config.read('config.ini')
     db_name = config.get('settings', 'database')
     cursor.execute("USE " + db_name)
+
+    # Requête qui récupère toutes les pages dont le page_id commence par 0011 ou 0012.
     requete = """SELECT * FROM page WHERE page_id LIKE '%0011%' OR page_id LIKE '%0012%'"""
     cursor.execute(requete)
     resultat = cursor.fetchall()
 
+    # Pour chaque page, on récupère les informations nécessaires.
     for row in resultat:
         page_id = row[0]
         niveau_gris = row[2]
@@ -220,6 +242,8 @@ def remplirBDDAnalogie(conn):
         point_noir = resultat2[0][2]
         point_blanc = resultat2[0][3]
         gamma = resultat2[0][4]
+
+        # On fait de même pour la deuxième page et on entre les données dans la BDD.
         for row2 in resultat:
             page_id2 = row[0]
             niveau_gris2 = row[2]
@@ -229,8 +253,10 @@ def remplirBDDAnalogie(conn):
             point_blanc2 = resultat3[0][3]
             gamma2 = resultat3[0][4]
             try:
+                # On calcule la difference entre les donnees des deux pages.
                 reference = (page_id, page_id2, niveau_gris - niveau_gris2, point_noir - point_noir2,
                              point_blanc - point_blanc2, gamma - gamma2)
+                # On insère cette différence dans la table analogie.
                 cursor.execute(
                     """INSERT INTO analogie (page1, page2, difference_niveau_gris, difference_point_noir, 
                     difference_point_blanc, difference_gamma) VALUES(%s, %s, %s, %s, %s, %s)""",
@@ -249,8 +275,16 @@ choix = input("Que voulez vous faire ?\n"
               "Choisir toute autre option pour quitter le programme.\n"
               "Votre choix : ")
 if choix == "1":
-    creationBDD(bdd)
+    verification = input('Veuillez confirmer (saisissez "Je confirme la réinitialisation de la BDD") : ')
+    if verification == "Je confirme la réinitialisation de la BDD":
+        creationBDD(bdd)
+        print("Réinitialisation de la BDD effectuée.")
+    else:
+        print("Abandon de la procédure.")
 elif choix == "2":
     remplirBDD(bdd)
 elif choix == "3":
     remplirBDDAnalogie(bdd)
+else:
+    print("Abandon du programme.")
+    bdd.close()
