@@ -54,6 +54,9 @@
       MODIFY `triplet_id` int NOT NULL AUTO_INCREMENT;
 
     ALTER TABLE `analogie`
+      MODIFY `analogie_id` int NOT NULL AUTO_INCREMENT;
+
+    ALTER TABLE `analogie`
       ADD CONSTRAINT `page1FK` FOREIGN KEY (`page1`) REFERENCES `page` (`page_id`);
 
     ALTER TABLE `analogie`

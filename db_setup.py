@@ -7,23 +7,24 @@ from pathlib import Path
 from statistics import mean
 
 import mysql.connector
+import mysql.connector
 import openpyxl
 from PIL import Image
 from PIL import ImageStat
 
 
 def connexionBDD():
+    config = configparser.RawConfigParser()
+    config.read('config.ini')
     try:
-        config = configparser.RawConfigParser()
-        config.read('config.ini')
         conn = mysql.connector.connect(
             host=config.get('settings', 'host'),
             user=config.get('settings', 'username'),
             passwd=config.get('settings', 'password'),
         )
         return conn
-    except Exception as e:
-        print("Erreur lors de la connexion à la BDD: " + str(e))
+    except mysql.connector.Error as e:
+        print(f"Error connecting to the database: {e}")
         sys.exit(1)
 
 
@@ -201,6 +202,55 @@ def remplirBDD(conn):
                     im.close()
 
 
+def remplirBDDAnalogie(conn):
+    cursor = conn.cursor()
+    config = configparser.RawConfigParser()
+    config.read('config.ini')
+    db_name = config.get('settings', 'database')
+    cursor.execute("USE " + db_name)
+    requete = """SELECT * FROM page WHERE page_id LIKE '%0011%' OR page_id LIKE '%0012%'"""
+    cursor.execute(requete)
+    resultat = cursor.fetchall()
+
+    for row in resultat:
+        page_id = row[0]
+        niveau_gris = row[2]
+        cursor.execute("""SELECT * FROM triplet WHERE page_id LIKE '""" + page_id + "'")
+        resultat2 = cursor.fetchall()
+        point_noir = resultat2[0][2]
+        point_blanc = resultat2[0][3]
+        gamma = resultat2[0][4]
+        for row2 in resultat:
+            page_id2 = row[0]
+            niveau_gris2 = row[2]
+            cursor.execute("""SELECT * FROM triplet WHERE page_id LIKE '""" + page_id + "'")
+            resultat3 = cursor.fetchall()
+            point_noir2 = resultat3[0][2]
+            point_blanc2 = resultat3[0][3]
+            gamma2 = resultat3[0][4]
+            try:
+                reference = (page_id, page_id2, niveau_gris - niveau_gris2, point_noir - point_noir2,
+                             point_blanc - point_blanc2, gamma - gamma2)
+                cursor.execute(
+                    """INSERT INTO analogie (page1, page2, difference_niveau_gris, difference_point_noir, 
+                    difference_point_blanc, difference_gamma) VALUES(%s, %s, %s, %s, %s, %s)""",
+                    reference)
+                conn.commit()
+            except mysql.connector.errors.DataError as e:
+                print(e, " : ", row[0], " : ", row2[0])
+                conn.rollback()
+
+
 bdd = connexionBDD()
-#creationBDD(bdd)
-remplirBDD(bdd)
+choix = input("Que voulez vous faire ?\n"
+              "1. Réinitialiser la Base de Données.\n"
+              "2. Remplir la BDD avec les fascicules et OCR fournis.\n"
+              "3. Remplir la BDD avec les analogies.\n"
+              "Choisir toute autre option pour quitter le programme.\n"
+              "Votre choix : ")
+if choix == "1":
+    creationBDD(bdd)
+elif choix == "2":
+    remplirBDD(bdd)
+elif choix == "3":
+    remplirBDDAnalogie(bdd)
