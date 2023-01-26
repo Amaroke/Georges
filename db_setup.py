@@ -216,7 +216,7 @@ def remplirBDD(conn):
 
                         imgdata.close()
                     except KeyError:
-                        print("ERROR")
+                        print('Un fascicule ne contenait pas le mot "de"')
                     archive.close()
                     im.close()
 
@@ -245,9 +245,9 @@ def remplirBDDAnalogie(conn):
 
         # On fait de même pour la deuxième page et on entre les données dans la BDD.
         for row2 in resultat:
-            page_id2 = row[0]
-            niveau_gris2 = row[2]
-            cursor.execute("""SELECT * FROM triplet WHERE page_id LIKE '""" + page_id + "'")
+            page_id2 = row2[0]
+            niveau_gris2 = row2[2]
+            cursor.execute("""SELECT * FROM triplet WHERE page_id LIKE '""" + page_id2 + "'")
             resultat3 = cursor.fetchall()
             point_noir2 = resultat3[0][2]
             point_blanc2 = resultat3[0][3]
