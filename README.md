@@ -11,12 +11,13 @@ De même vous avez besoin d'un serveur de base de données, mySQL définit le ch
 
 ### Dépendances nécessaires à Python
 
-Pour faciliter l'utilisation de notre programme, nous n'utilisons que des dépendances facilement obtenables à l'aide de pip, déjà présent dans la version 3.11 de python. <br >.
+Pour faciliter l'utilisation de notre programme, nous n'utilisons que des dépendances facilement obtenables à l'aide de pip, déjà présent dans la version 3.11 de python.<br >
 Il faudra donc installer les dépendances suivantes simplement en exécutant ces commandes :
 * pip install mysql-connector-python
 * pip install configparser
 * pip install openpyxl
 * pip install Pillow
+* pip install matplotlib
 
 ### Structuration des données à traiter et des fichiers de configuration
 
