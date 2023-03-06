@@ -18,6 +18,7 @@ Il faudra donc installer les dépendances suivantes simplement en exécutant ces
 * pip install openpyxl
 * pip install Pillow
 * pip install matplotlib
+* pip install numpy
 
 ### Structuration des données à traiter et des fichiers de configuration
 
@@ -33,6 +34,7 @@ Il faut également ajouter à la racine du projet le dossier `datas`, qui contie
 Par la suite il faut simplement mettre les fascicules à traiter ainsi que les OCR respectivement dans leur dossier dédié, `Fascicules` et `OCR`.
 
 Nous travaillons avec l'architecture suivante pour le dossier `datas` :
+```
 ├───Fascicules
 │   ├───barb_0001-4133_1919_num_5_1
 │   │   ├───Fantomes_Couvertures_Figures
@@ -307,3 +309,4 @@ Nous travaillons avec l'architecture suivante pour le dossier `datas` :
     ├───rnord_0035-2624_1989_num_71_282
     ├───rnord_0035-2624_1991_num_73_290
     └───rnord_0035-2624_1994_num_76_306
+```
