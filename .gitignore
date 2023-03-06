@@ -3,11 +3,4 @@ config.ini
 /datas/
 /venv/
 /OLD/
-/bug_datas/
-/Comparaison nettoyage/
-reponses.txt
-reponses2.txt
-reponses3.txt
-donnees.csv
 /__pycache__/
-scores.csv
