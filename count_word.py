@@ -1,7 +1,7 @@
-import math
-import xml.etree.ElementTree
 import os
+import xml.etree.ElementTree
 import zipfile
+
 import matplotlib.pyplot as plt
 import numpy as np
 

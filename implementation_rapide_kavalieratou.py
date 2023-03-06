@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-image = cv2.imread("image.png") # Changer le nom
+image = cv2.imread("image.png")  # Changer le nom
 cpt = 0
 moyenne = np.average(image)  # MOYENNE/MEDIAN ?
 while cpt < 8:
