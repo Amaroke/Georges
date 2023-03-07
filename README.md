@@ -19,6 +19,7 @@ Il faudra donc installer les dépendances suivantes simplement en exécutant ces
 * pip install Pillow
 * pip install matplotlib
 * pip install numpy
+* pip install tkinter
 
 ### Structuration des données à traiter et des fichiers de configuration
 
@@ -28,7 +29,7 @@ Un fichier `config.ini` est nécessaire pour la connexion à la BDD du programme
 host : localhost
 username : VOTRE USERNAME BDD
 password : VOTRE MOT DE PASSE BDD
-database : NettoyArchiv
+database : Georges
 ```
 Il faut également ajouter à la racine du projet le dossier `datas`, qui contient lui-même les dossiers `Fascicules` et `OCR`, ainsi que `Triplets.xlsx`, la feuille de calcul format excel contenant les Triplets des Fascicules à traiter. <br>
 Par la suite il faut simplement mettre les fascicules à traiter ainsi que les OCR respectivement dans leur dossier dédié, `Fascicules` et `OCR`.
