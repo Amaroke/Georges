@@ -304,12 +304,3 @@ Nous travaillons avec l'architecture suivante pour le dossier `datas` :
 └───ressources_evaluateur
 ```
 
-### Topologie des corpus utilisés
-| Nom du fasciule | Présence de texte | Texte lisible | Présence d'images | Absence de "de" | Pages inclinées | Présence de speckles | Pages jaunies | Présence de tâches | Bords abimés |
-|------------------|-------------------|---------------|-------------------|-----------------|------------------|----------------------|---------------|--------------------|--------------|
-| barb_0001-4133_1919_num_5_1 | Oui | Oui | Oui | Non | Oui | Oui | Oui | Non | Non |
-| barb_0001-4133_1920_num_6_1 | Oui | Oui | Oui | Non | Oui | Oui | Non | Non | Non |
-| barb_0001-4133_1929_num_15_1 | Oui | Oui | Oui | Non | Oui | Oui | Non | Non | Non |
-| barb_0001-4133_1939_num_25_1 | Oui | Oui | Oui | Non | Oui | Non | Non | Non | Non |
-| barb_0001-4133_1941_num_27_1 | Oui | Oui | Oui | Non | Oui | Non | Non | Non | Non |
-
