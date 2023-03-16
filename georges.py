@@ -206,10 +206,17 @@ else:
 
 # NGU & ANA
 # On regarde les correspondance dans la bdd (création de la requête)
-requete = """(select P.page_id, niveau_gris, point_noir, point_blanc, gamma from page as P, triplet as T where 
-P.page_id = T.page_id AND niveau_gris >= %s and P.page_id != %s order by niveau_gris asc limit 1) union (select 
-P.page_id, niveau_gris, point_noir, point_blanc, gamma from page as P, triplet as T where P.page_id = T.page_id AND 
-niveau_gris < %s and P.page_id != %s order by niveau_gris desc limit 1) order by abs(niveau_gris - %s) limit 1 """
+requete = """(select P.page_id, niveau_gris, point_noir, point_blanc, gamma 
+                from page as P, triplet as T 
+                where P.page_id = T.page_id AND niveau_gris >= %s and P.fascicule_id != %s 
+                order by niveau_gris asc limit 1) 
+            union 
+             (select P.page_id, niveau_gris, point_noir, point_blanc, gamma 
+                from page as P, triplet as T 
+                where P.page_id = T.page_id AND niveau_gris < %s and P.fascicule_id != %s 
+                order by niveau_gris desc limit 1)
+            order by abs(niveau_gris - %s) limit 1 """
+
 # Connexion à la BDD
 conn = connexionBDD()
 cursor = setup_curseur(conn)
@@ -241,9 +248,9 @@ print("Recherche par niveau de gris basique terminée, résultats écrits dans l
 # On passe à la méthode par matrice
 fichier_reponses_2 = open("reponses2.txt", "w")
 
-requete = """select P.page_id, point_noir, point_blanc, gamma, haut_gauche, haut_milieu, haut_droite, bas_gauche, 
-bas_milieu, bas_droite, fascicule_id from page as P, matrice as M, triplet as T where P.page_id = T.page_id AND 
-P.page_id = M.page_id """
+requete = """select P.page_id, point_noir, point_blanc, gamma, haut_gauche, haut_milieu, haut_droite, bas_gauche, bas_milieu, bas_droite, fascicule_id 
+                from page as P, matrice as M, triplet as T 
+                where P.page_id = T.page_id AND P.page_id = M.page_id """
 
 # On se replace au début de la BDD.
 cursor = setup_curseur(conn)
@@ -294,9 +301,17 @@ print("Recherche par matrice 2*3 terminée, résultats écrits dans le fichier '
 fichier_reponses_3 = open("reponses3.txt", "w")
 
 # On prépare les requêtes qui récupèrent les données de la BDD
-requete = """(select * from analogie where difference_niveau_gris >= %s and page1 != %s order by 
-difference_niveau_gris asc limit 1) union (select * from analogie where difference_niveau_gris < %s and page1 != %s 
-order by difference_niveau_gris desc limit 1) order by abs(difference_niveau_gris - %s) limit 1 """
+requete = """(select * 
+                from analogie 
+                where difference_niveau_gris >= %s and page1 != %s 
+                order by difference_niveau_gris asc limit 1) 
+            union 
+             (select * 
+                from analogie 
+                where difference_niveau_gris < %s and page1 != %s
+                order by difference_niveau_gris desc limit 1) 
+            order by abs(difference_niveau_gris - %s) limit 1 """
+
 # On se replace au début de la BDD.
 cursor = setup_curseur(conn)
 
@@ -322,6 +337,62 @@ fichier_reponses_3.close()
 conn.close()
 
 print("Recherche par analogie terminée, résultats écrits dans le fichier 'reponses3.txt'.")
+
+###########################################
+# Interpolation donnant contrainte et valeur exacte 1*1 #
+###########################################
+
+requete = """(select P.page_id, niveau_gris, point_noir, point_blanc, gamma 
+                from page as P, triplet as T 
+                where P.page_id = T.page_id AND niveau_gris >= %s and P.fascicule_id != %s 
+                order by niveau_gris asc limit 1) 
+            union 
+              (select P.page_id, niveau_gris, point_noir, point_blanc, gamma 
+                from page as P, triplet as T 
+                where P.page_id = T.page_id AND niveau_gris < %s and P.fascicule_id != %s 
+                order by niveau_gris desc limit 1) """
+
+# Connexion à la BDD A ENLEVER
+conn = connexionBDD()
+
+# On se replace au début de la BDD.
+cursor = setup_curseur(conn)
+
+# On commence par la méthode par niveaux de gris simples.
+# Ouverture des fichiers dans lesquels on écrit la sortie du programme
+fichier_reponses = open("reponses4.txt", "w")
+
+# On recherche le fichier le plus similaire à chaque page du fascicule cible et on écrit la réponse dans le fichier réponse.
+for i in range(len(tab_fichiers_traites)):
+    if (tab_moyennes[i] != 0.0):
+        cursor.execute(requete, (tab_moyennes[i], id_fascicule, tab_moyennes[i], id_fascicule))
+        
+        # Contrainte
+        row = cursor.fetchone()
+        triplet_string_1 = "(" + str(row[2]) + ", " + str(row[3]) + ", " + str(row[4]) + ")"
+        ng_1 = row[1]
+        pn_1 = row[2]
+        pb_1 = row[3]
+        gamma_1 = row[4]
+        row = cursor.fetchone()
+        triplet_string_2 = "(" + str(row[2]) + ", " + str(row[3]) + ", " + str(row[4]) + ")"
+        ng_2 = row[1]
+        pn_2 = row[2]
+        pb_2 = row[3]
+        gamma_2 = row[4]
+
+        #Intervalle
+        t = abs(tab_moyennes[i] - ng_1)/abs(ng_2 - ng_1)
+        pn_3 = int((1 - t) * pn_1 + t * pn_2)
+        pb_3 = int((1 - t) * pb_1 + t * pb_2)
+        gamma_3 = int((1 - t) * gamma_1 + t * gamma_2)
+        triplet_string_3 = "(" + str(pn_3) + ", " + str(pb_3) + ", " + str(gamma_3) + ")"
+
+        fichier_reponses.write(tab_fichiers_traites[i] + " -> " + triplet_string_3 +  " -> [" + triplet_string_1 + ", "+ triplet_string_2 + "]\n")
+    else :
+        fichier_reponses.write(tab_fichiers_traites[i] + " -> ng = 0 donc pas d'interpolation\n")
+
+print("Recherche par interpolation (1*1) terminée, résultats écrits dans le fichier 'reponses4.txt'.")
 
 ###########################
 # Récupération de donéees #
