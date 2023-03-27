@@ -22,7 +22,6 @@ target_files = ['barb_0001-4133_1919_num_5_1_T1_0032_0000.png',
                 'rnord_0035-2624_1933_num_19_75_T1_0211_0000.png',
                 'rnord_0035-2624_1934_num_20_78_T1_0156_0000.png',
                 'rnord_0035-2624_1934_num_20_80_T1_0342_0000.png',
-                'rnord_0035-2624_1939_num_25_100_T1_0247_0000.png',
                 'rnord_0035-2624_1952_num_34_133_T1_0005_0000.png',
                 'rnord_0035-2624_1960_num_42_167_T1_0007_0000.png',
                 'rnord_0035-2624_1964_num_46_181_T1_0131_0000.png',
@@ -49,7 +48,7 @@ target_files = ['barb_0001-4133_1919_num_5_1_T1_0032_0000.png',
                 ]
 
 # Définir le dossier de destination pour les fichiers trouvés
-dest_folder = "datas/BasesDeCas/TestsAutomatiques"
+dest_folder = "datas/BasesDeCas/Origine/TestsAutomatiques"
 
 
 def recursive_search(directory):
