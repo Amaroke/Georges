@@ -20,6 +20,7 @@ Il faudra donc installer les dépendances suivantes simplement en exécutant ces
 * pip install matplotlib
 * pip install numpy
 * pip install tkinter
+* pip install opencv-python
 
 ### Structuration des données à traiter et des fichiers de configuration
 
