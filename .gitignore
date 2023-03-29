@@ -8,6 +8,7 @@ reponses.txt
 reponses2.txt
 reponses3.txt
 reponses4.txt
+reponses5.txt
 donnees.csv
 scores.csv
 /Résultats/
@@ -16,3 +17,4 @@ scores.csv
 /Statistiques/fusion_de.png
 /Statistiques/de_images_matrices/
 /Statistiques/de_niveau_gris/
+.vscode/settings.json

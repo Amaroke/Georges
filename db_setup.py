@@ -155,6 +155,9 @@ def score_global_matrice(tab_score_mots_matrice):
 
     return mean(somme_hg), mean(somme_hm), mean(somme_hd), mean(somme_bg), mean(somme_bm), mean(somme_bd)
 
+def calcul_somme_diff_matrice(m1, m2):
+    return abs(m1[0] - m2[0]) + abs(m1[1] - m2[1]) + abs(m1[2] - m2[2]) + abs(m1[3] - m2[3]) + abs(m1[4] - m2[4]) + abs(
+        m1[5] - m2[5])
 
 def remplirBDD(conn):
     xlsx_file = Path('datas/Triplets.xlsx')
@@ -242,6 +245,14 @@ def remplirBDDAnalogie(conn):
         point_noir = resultat2[0][2]
         point_blanc = resultat2[0][3]
         gamma = resultat2[0][4]
+        cursor.execute("""SELECT * FROM matrice WHERE page_id LIKE '""" + page_id + "'")
+        resultat5 = cursor.fetchone()
+        haut_gauche = resultat5[2]
+        haut_milieu = resultat5[3]
+        haut_droite = resultat5[4]
+        bas_gauche = resultat5[5]
+        bas_milieu = resultat5[6]
+        bas_droite = resultat5[7]
 
         # On fait de même pour la deuxième page et on entre les données dans la BDD.
         for row2 in resultat:
@@ -252,14 +263,25 @@ def remplirBDDAnalogie(conn):
             point_noir2 = resultat3[0][2]
             point_blanc2 = resultat3[0][3]
             gamma2 = resultat3[0][4]
+            cursor.execute("""SELECT * FROM matrice WHERE page_id LIKE '""" + page_id2 + "'")
+            resultat4 = cursor.fetchone()
+            haut_gauche2 = resultat4[2]
+            haut_milieu2 = resultat4[3]
+            haut_droite2 = resultat4[4]
+            bas_gauche2 = resultat4[5]
+            bas_milieu2 = resultat4[6]
+            bas_droite2 = resultat4[7]
             try:
                 # On calcule la difference entre les donnees des deux pages.
                 reference = (page_id, page_id2, niveau_gris - niveau_gris2, point_noir - point_noir2,
-                             point_blanc - point_blanc2, gamma - gamma2)
+                             point_blanc - point_blanc2, gamma - gamma2, calcul_somme_diff_matrice(
+                                (float(haut_gauche), float(haut_milieu), float(haut_droite), float(bas_gauche), float(bas_milieu), float(bas_droite)),
+                                (float(haut_gauche2), float(haut_milieu2), float(haut_droite2), float(bas_gauche2), float(bas_milieu2), float(bas_droite2))
+                            ))
                 # On insère cette différence dans la table analogie.
                 cursor.execute(
                     """INSERT INTO analogie (page1, page2, difference_niveau_gris, difference_point_noir, 
-                    difference_point_blanc, difference_gamma) VALUES(%s, %s, %s, %s, %s, %s)""",
+                    difference_point_blanc, difference_gamma, difference_matrices) VALUES(%s, %s, %s, %s, %s, %s, %s)""",
                     reference)
                 conn.commit()
             except mysql.connector.errors.DataError as e:

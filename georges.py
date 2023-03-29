@@ -75,12 +75,18 @@ def decoupe_matrice_2_par_3(word):
     largeur_mot = mot[0] - mot[2]
 
     # On découpe ces coordonnées en une matrice 2*3.
-    rectangle_hg = (mot[0], mot[1], mot[0] - largeur_mot / 3, mot[1] - hauteur_mot / 2)
-    rectangle_hm = (mot[0] - largeur_mot / 3, mot[1], mot[0] - (largeur_mot / 3) * 2, mot[1] - hauteur_mot / 2)
-    rectangle_hd = (mot[0] - (largeur_mot / 3) * 2, mot[1], mot[2], mot[1] - hauteur_mot / 2)
-    rectangle_bg = (mot[0], mot[1] - hauteur_mot / 2, mot[0] - largeur_mot / 3, mot[3])
-    rectangle_bm = (mot[0] - largeur_mot / 3, mot[1] - hauteur_mot / 2, mot[0] - (largeur_mot / 3) * 2, mot[3])
-    rectangle_bd = (mot[0] - (largeur_mot / 3) * 2, mot[1] - hauteur_mot / 2, mot[2], mot[3])
+    rectangle_hg = (mot[0], mot[1], mot[0] -
+                    largeur_mot / 3, mot[1] - hauteur_mot / 2)
+    rectangle_hm = (mot[0] - largeur_mot / 3, mot[1], mot[0] -
+                    (largeur_mot / 3) * 2, mot[1] - hauteur_mot / 2)
+    rectangle_hd = (mot[0] - (largeur_mot / 3) * 2, mot[1],
+                    mot[2], mot[1] - hauteur_mot / 2)
+    rectangle_bg = (mot[0], mot[1] - hauteur_mot / 2,
+                    mot[0] - largeur_mot / 3, mot[3])
+    rectangle_bm = (mot[0] - largeur_mot / 3, mot[1] -
+                    hauteur_mot / 2, mot[0] - (largeur_mot / 3) * 2, mot[3])
+    rectangle_bd = (mot[0] - (largeur_mot / 3) * 2,
+                    mot[1] - hauteur_mot / 2, mot[2], mot[3])
 
     return (im.crop(mot), im.crop(rectangle_hg), im.crop(rectangle_hm), im.crop(rectangle_hd), im.crop(rectangle_bg),
             im.crop(rectangle_bm), im.crop(rectangle_bd))
@@ -119,10 +125,12 @@ def score_global_matrice(tab_score_mots_matrice):
 
 # Initialisation des variables constantes utilisée dans tout le fichier
 id_fascicule = input("Donnez moi l'id du fascicule à analyser : ")
-mot_choisi = "de"  # Peut être remplacé par un input mais il faut modifier la bdd (stocker les valeurs correspondant
+# Peut être remplacé par un input mais il faut modifier la bdd (stocker les valeurs correspondant
+mot_choisi = "de"
 # à cet input)
 
-chemin = os.path.join(os.getcwd(), "datas", "Fascicules", id_fascicule, "Pages_volume", "GreyScale")
+chemin = os.path.join(os.getcwd(), "datas", "Fascicules",
+                      id_fascicule, "Pages_volume", "GreyScale")
 chemin_archive = os.path.join(os.getcwd(), "datas", "OCR", id_fascicule)
 
 # Initialisations des structures de données et variables nécessaires au stockage de données sur les images.
@@ -139,7 +147,8 @@ for filename in os.listdir(chemin):
         im = Image.open(chemin_file)
 
         # On ouvre le .zip contenant le fichier .xml
-        chemin_ocr = os.path.join(chemin_archive, filename.replace(".png", " - ocr.zip"))
+        chemin_ocr = os.path.join(
+            chemin_archive, filename.replace(".png", " - ocr.zip"))
         archive = zipfile.ZipFile(chemin_ocr, 'r')
         try:
             # Ouverture du .xml
@@ -165,7 +174,8 @@ for filename in os.listdir(chemin):
                     # On découpe en matrice 2*3 le mot et on calcule les moyennes sur cette matrice.
                     mat = decoupe_matrice_2_par_3(word)
                     tab_score_mots_matrice.append((calcul_moyenne_image(mat[0]), calcul_moyenne_image(mat[1]),
-                                                   calcul_moyenne_image(mat[2]), calcul_moyenne_image(mat[3]),
+                                                   calcul_moyenne_image(
+                                                       mat[2]), calcul_moyenne_image(mat[3]),
                                                    calcul_moyenne_image(mat[4]), calcul_moyenne_image(mat[5])))
 
             # NGU & ANA
@@ -178,7 +188,8 @@ for filename in os.listdir(chemin):
             # MAT
             # On fait la moyenne des moyennes des matrices.
             if tab_score_mots_matrice:
-                tab_moyennes_matrice.append(score_global_matrice(tab_score_mots_matrice))
+                tab_moyennes_matrice.append(
+                    score_global_matrice(tab_score_mots_matrice))
             else:
                 tab_moyennes_matrice.append((0.0, 0.0, 0.0, 0.0, 0.0, 0.0))
 
@@ -230,10 +241,13 @@ stockage_reponse_score = dict()
 # On recherche le fichier le plus similaire à chaque page du fascicule cible et on écrit la réponse dans le fichier
 # réponse.
 for i in range(len(tab_fichiers_traites)):
-    cursor.execute(requete, (tab_moyennes[i], id_fascicule, tab_moyennes[i], id_fascicule, tab_moyennes[i]))
+    cursor.execute(
+        requete, (tab_moyennes[i], id_fascicule, tab_moyennes[i], id_fascicule, tab_moyennes[i]))
     row = cursor.fetchone()
-    triplet_string = "(" + str(row[2]) + ", " + str(row[3]) + ", " + str(row[4]) + ")"
-    fichier_reponses.write(tab_fichiers_traites[i] + " -> " + triplet_string + "\n")
+    triplet_string = "(" + str(row[2]) + ", " + \
+        str(row[3]) + ", " + str(row[4]) + ")"
+    fichier_reponses.write(
+        tab_fichiers_traites[i] + " -> " + triplet_string + "\n")
     stockage_triplets[tab_fichiers_traites[i]] = triplet_string
     stockage_reponse_score[tab_fichiers_traites[i]] = (row[1], triplet_string)
 
@@ -269,7 +283,8 @@ for i in range(len(tab_fichiers_traites)):
 # On récupère toutes les données des matrices de la BDD et on cherche pour chaque fichier la plus proche.
 est_termine = False
 while not est_termine:
-    rows = cursor.fetchmany(1000)  # On en récupère 1000 par 1000 pour ne pas surcharger la mémoire.
+    # On en récupère 1000 par 1000 pour ne pas surcharger la mémoire.
+    rows = cursor.fetchmany(1000)
     if not rows:
         est_termine = True
     else:
@@ -278,37 +293,40 @@ while not est_termine:
                 for i in range(len(tab_fichiers_traites)):
                     temp = calcul_somme_diff_matrice(tab_moyennes_matrice[i], (
                         float(row[4]), float(row[5]), float(row[6]), float(row[7]), float(row[8]), float(row[9])))
-                    if temp < matrice_calcul[i]:  # Si la matrcie est plus proche que celles précédentes, on la stocke.
+                    # Si la matrice est plus proche que celles précédentes, on la stocke.
+                    if temp < matrice_calcul[i]:
                         matrice_calcul[i] = temp
                         matrice_proche[i] = row[0]
-                        matrice_triplet[i] = "(" + str(row[1]) + ", " + str(row[2]) + ", " + str(row[3]) + ")"
+                        matrice_triplet[i] = "(" + str(row[1]) + \
+                            ", " + str(row[2]) + ", " + str(row[3]) + ")"
 
 stockage_triplets_v2 = dict()
 # On écrit les réponses dans le second fichier réponses.
 for i in range(len(tab_fichiers_traites)):
-    fichier_reponses_2.write(tab_fichiers_traites[i] + " -> " + matrice_triplet[i] + "\n")
+    fichier_reponses_2.write(
+        tab_fichiers_traites[i] + " -> " + matrice_triplet[i] + "\n")
     stockage_triplets_v2[tab_fichiers_traites[i]] = matrice_triplet[i]
 
 fichier_reponses_2.close()
 print("Recherche par matrice 2*3 terminée, résultats écrits dans le fichier 'reponses2.txt'.")
 
 ########################
-# Méthode par analogie #
+# Méthode par analogie 1*1 #
 ########################
 
 # ANA
-# On passe à la méthode par matrice
 fichier_reponses_3 = open("reponses3.txt", "w")
 
 # On prépare les requêtes qui récupèrent les données de la BDD
+# TODO : Remplacer par une requête plus efficace, cf requete ANA 2*3.
 requete = """(select * 
                 from analogie 
-                where difference_niveau_gris >= %s and page1 != %s 
+                where difference_niveau_gris >= %s and page1 != %s and page2 != %s
                 order by difference_niveau_gris asc limit 1) 
             union 
              (select * 
                 from analogie 
-                where difference_niveau_gris < %s and page1 != %s
+                where difference_niveau_gris < %s and page1 != %s and page2 != %s
                 order by difference_niveau_gris desc limit 1) 
             order by abs(difference_niveau_gris - %s) limit 1 """
 
@@ -316,27 +334,64 @@ requete = """(select *
 cursor = setup_curseur(conn)
 
 stockage_triplets_v3 = dict()
-# On récupère les fichiers les plus proches calculés à la v2 (à recalculer si on fait pas la v2)
+# On récupère les fichiers les plus proches calculés en approximation 1*1.
 for i in range(len(tab_fichiers_traites)):
-    diff_NG = tab_moyennes[i] - float(stockage_reponse_score[tab_fichiers_traites[i]][0])
-    cursor.execute(requete, (diff_NG, tab_fichiers_traites[i], diff_NG, tab_fichiers_traites[i], diff_NG))
+    diff_NG = tab_moyennes[i] - \
+        float(stockage_reponse_score[tab_fichiers_traites[i]][0])
+    cursor.execute(requete, (diff_NG, tab_fichiers_traites[i], tab_fichiers_traites[i],
+                   diff_NG, tab_fichiers_traites[i], tab_fichiers_traites[i], diff_NG))
     row = cursor.fetchone()
-    triplet = stockage_reponse_score[tab_fichiers_traites[i]][1].replace("(", "").replace(")", "").replace(" ",
-                                                                                                           "").split(
-        ",")
+    triplet = stockage_reponse_score[tab_fichiers_traites[i]][1].replace("(", "").replace(")", "").replace(" ","").split(",")
     pn_analogie = int(triplet[0]) + int(row[4])
     pb_analogie = int(triplet[1]) + int(row[5])
     g_analogie = float(triplet[2]) + float(row[6])
-    fichier_reponses_3.write(tab_fichiers_traites[i] + " : (" + str(pn_analogie) + ", " + str(pb_analogie) + ", " + str(
-        g_analogie) + ") depuis " + str(triplet) + " avec changement de : " + str(
-        int(row[4]) + int(row[5]) + float(row[6])) + "\n")
-    stockage_triplets_v3[tab_fichiers_traites[i]] = "(" + str(pn_analogie) + ", " + str(pb_analogie) + ", " + str(
-        g_analogie) + ")"
+    fichier_reponses_3.write(tab_fichiers_traites[i] + " : (" + str(pn_analogie) + ", " + str(pb_analogie) + ", " + str(g_analogie) + ") depuis " + str(triplet) + " avec changement de : " + str(int(row[4]) + int(row[5]) + float(row[6])) + "\n")
+    stockage_triplets_v3[tab_fichiers_traites[i]] = "(" + str(pn_analogie) + ", " + str(pb_analogie) + ", " + str(g_analogie) + ")"
 fichier_reponses_3.close()
 
-conn.close()
+print("Recherche par analogie 1*1 terminée, résultats écrits dans le fichier 'reponses3.txt'.")
 
-print("Recherche par analogie terminée, résultats écrits dans le fichier 'reponses3.txt'.")
+############################
+# Méthode par analogie 2*3 #
+############################
+
+# ANA
+fichier_reponses = open("reponses5.txt", "w")
+
+# Requete qui récupère les données de la BDD
+requete = """SELECT *
+            FROM analogie
+            WHERE page1 != %s AND page2 != %s
+            ORDER BY 
+                ABS(difference_matrices - %s) ASC
+            LIMIT 1"""
+
+# On se replace au début de la BDD.
+cursor = setup_curseur(conn)
+
+stockage_triplets_v4 = dict()
+# On récupère les fichiers les plus proches calculés en approximation 2*3.
+for i in range(len(tab_fichiers_traites)):
+    # On garde le même fonctionnement que pour la méthode 1*1, C = page choisie en approximation.
+    # On récupère la diff entre les matrices de la page TGT et C.
+    diff_Matrice_TGT_C = matrice_calcul[i]
+
+    cursor.execute(requete, (tab_fichiers_traites[i], tab_fichiers_traites[i], diff_Matrice_TGT_C))
+    row = cursor.fetchone()
+
+    # On récupère les triplets de la page C.
+    triplet = stockage_triplets_v2[tab_fichiers_traites[i]].replace("(", "").replace(")", "").replace(" ","").split(",")
+
+    # On calcule les pn, pb et gamma de la page TGT.
+    pn_analogie = int(triplet[0]) + int(row[4])
+    pb_analogie = int(triplet[1]) + int(row[5])
+    g_analogie = float(triplet[2]) + float(row[6])
+
+    fichier_reponses.write(tab_fichiers_traites[i] + " : (" + str(pn_analogie) + ", " + str(pb_analogie) + ", " + str(g_analogie) + ") depuis " + str(triplet) + " avec changement de : " + str(int(row[4]) + int(row[5]) + float(row[6])) + "\n")
+    stockage_triplets_v4[tab_fichiers_traites[i]] = "(" + str(pn_analogie) + ", " + str(pb_analogie) + ", " + str(g_analogie) + ")"
+fichier_reponses.close()
+
+print("Recherche par analogie 2*3 terminée, résultats écrits dans le fichier 'reponses5.txt'.")
 
 ###########################################
 # Interpolation donnant contrainte et valeur exacte 1*1 #
@@ -352,9 +407,6 @@ requete = """(select P.page_id, niveau_gris, point_noir, point_blanc, gamma
                 where P.page_id = T.page_id AND niveau_gris < %s and P.fascicule_id != %s 
                 order by niveau_gris desc limit 1) """
 
-# Connexion à la BDD A ENLEVER
-conn = connexionBDD()
-
 # On se replace au début de la BDD.
 cursor = setup_curseur(conn)
 
@@ -365,34 +417,43 @@ fichier_reponses = open("reponses4.txt", "w")
 # On recherche le fichier le plus similaire à chaque page du fascicule cible et on écrit la réponse dans le fichier réponse.
 for i in range(len(tab_fichiers_traites)):
     if (tab_moyennes[i] != 0.0):
-        cursor.execute(requete, (tab_moyennes[i], id_fascicule, tab_moyennes[i], id_fascicule))
-        
+        cursor.execute(
+            requete, (tab_moyennes[i], id_fascicule, tab_moyennes[i], id_fascicule))
+
         # Contrainte
         row = cursor.fetchone()
-        triplet_string_1 = "(" + str(row[2]) + ", " + str(row[3]) + ", " + str(row[4]) + ")"
+        triplet_string_1 = "(" + str(row[2]) + ", " + \
+            str(row[3]) + ", " + str(row[4]) + ")"
         ng_1 = row[1]
         pn_1 = row[2]
         pb_1 = row[3]
         gamma_1 = row[4]
         row = cursor.fetchone()
-        triplet_string_2 = "(" + str(row[2]) + ", " + str(row[3]) + ", " + str(row[4]) + ")"
+        triplet_string_2 = "(" + str(row[2]) + ", " + \
+            str(row[3]) + ", " + str(row[4]) + ")"
         ng_2 = row[1]
         pn_2 = row[2]
         pb_2 = row[3]
         gamma_2 = row[4]
 
-        #Intervalle
+        # Intervalle
         t = abs(tab_moyennes[i] - ng_1)/abs(ng_2 - ng_1)
         pn_3 = int((1 - t) * pn_1 + t * pn_2)
         pb_3 = int((1 - t) * pb_1 + t * pb_2)
         gamma_3 = int((1 - t) * gamma_1 + t * gamma_2)
-        triplet_string_3 = "(" + str(pn_3) + ", " + str(pb_3) + ", " + str(gamma_3) + ")"
+        triplet_string_3 = "(" + str(pn_3) + ", " + \
+            str(pb_3) + ", " + str(gamma_3) + ")"
 
-        fichier_reponses.write(tab_fichiers_traites[i] + " -> " + triplet_string_3 +  " -> [" + triplet_string_1 + ", "+ triplet_string_2 + "]\n")
-    else :
-        fichier_reponses.write(tab_fichiers_traites[i] + " -> ng = 0 donc pas d'interpolation\n")
+        fichier_reponses.write(tab_fichiers_traites[i] + " -> " + triplet_string_3 +
+                               " -> [" + triplet_string_1 + ", " + triplet_string_2 + "]\n")
+    else:
+        fichier_reponses.write(
+            tab_fichiers_traites[i] + " -> ng = 0 donc pas d'interpolation\n")
 
+fichier_reponses.close()
 print("Recherche par interpolation (1*1) terminée, résultats écrits dans le fichier 'reponses4.txt'.")
+
+conn.close()
 
 ###########################
 # Récupération de donéees #
@@ -415,7 +476,8 @@ for row in sheet.iter_rows(min_row=4, max_row=33):
 # Ensuite, on écrit les données dans un fichier csv pour pouvoir en faire un histogramme
 texte = " PN_Original PN_Outil PB_Original PB_Outil G_Original G_Outil\n"
 for fichier in stockage_triplets:
-    tab_triplet = stockage_triplets[fichier].replace("(", "").replace(")", "").split(",")
+    tab_triplet = stockage_triplets[fichier].replace(
+        "(", "").replace(")", "").split(",")
     point_noir = int(tab_triplet[0])
     point_blanc = int(tab_triplet[1])
     gamma = float(tab_triplet[2])
@@ -453,14 +515,16 @@ pn_original_normalise = pn_expert / 255
 pb_original_normalise = pb_expert / 255
 gamma_original_normalise = gamma_expert / 2
 # On calcule le total
-tot_original = (pn_original_normalise + pb_original_normalise + gamma_original_normalise) / 3
+tot_original = (pn_original_normalise +
+                pb_original_normalise + gamma_original_normalise) / 3
 
 texte = ";score_v1;score_v2;score_v3;=MOYENNE(B:B);=MEDIANE(B:B);=MOYENNE(C:C);=MEDIANE(C:C);=MOYENNE(D:D);=MEDIANE(" \
         "D:D)\n "
 for fichier in stockage_triplets:
     # On passe au calcul sur la v1
     # On cherche les données
-    tab_triplet = stockage_triplets[fichier].replace("(", "").replace(")", "").split(",")
+    tab_triplet = stockage_triplets[fichier].replace(
+        "(", "").replace(")", "").split(",")
     point_noir = int(tab_triplet[0])
     point_blanc = int(tab_triplet[1])
     gamma = float(tab_triplet[2])
@@ -474,7 +538,8 @@ for fichier in stockage_triplets:
 
     # On passe au calcul sur la v2
     # On cherche les données
-    tab_triplet = stockage_triplets_v2[fichier].replace("(", "").replace(")", "").split(",")
+    tab_triplet = stockage_triplets_v2[fichier].replace(
+        "(", "").replace(")", "").split(",")
     point_noir = int(tab_triplet[0])
     point_blanc = int(tab_triplet[1])
     gamma = float(tab_triplet[2])
@@ -488,7 +553,8 @@ for fichier in stockage_triplets:
 
     # On passe au calcul sur la v3
     # On cherche les données
-    tab_triplet = stockage_triplets_v3[fichier].replace("(", "").replace(")", "").split(",")
+    tab_triplet = stockage_triplets_v3[fichier].replace(
+        "(", "").replace(")", "").split(",")
     point_noir = int(tab_triplet[0])
     point_blanc = int(tab_triplet[1])
     gamma = float(tab_triplet[2])

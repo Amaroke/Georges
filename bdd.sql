@@ -5,7 +5,8 @@
       `difference_niveau_gris` double DEFAULT NULL,
       `difference_point_noir` int DEFAULT NULL,
       `difference_point_blanc` int DEFAULT NULL,
-      `difference_gamma` double DEFAULT NULL
+      `difference_gamma` double DEFAULT NULL,
+      `difference_matrices` double DEFAULT NULL
     );
 
     CREATE TABLE `matrice` (
