@@ -18,3 +18,4 @@ scores.csv
 /Statistiques/de_images_matrices/
 /Statistiques/de_niveau_gris/
 .vscode/settings.json
+/EvaluationAutomatique/tableaux_bases_de_cas.py

@@ -342,9 +342,9 @@ for i in range(len(tab_fichiers_traites)):
                    diff_NG, tab_fichiers_traites[i], tab_fichiers_traites[i], diff_NG))
     row = cursor.fetchone()
     triplet = stockage_reponse_score[tab_fichiers_traites[i]][1].replace("(", "").replace(")", "").replace(" ","").split(",")
-    pn_analogie = int(triplet[0]) + int(row[4])
-    pb_analogie = int(triplet[1]) + int(row[5])
-    g_analogie = float(triplet[2]) + float(row[6])
+    pn_analogie = max(int(triplet[0]) + int(row[4]), 0)
+    pb_analogie = min(int(triplet[1]) + int(row[5]), 255)
+    g_analogie = max(float(triplet[2]) + float(row[6]), 0.0)
     fichier_reponses_3.write(tab_fichiers_traites[i] + " : (" + str(pn_analogie) + ", " + str(pb_analogie) + ", " + str(g_analogie) + ") depuis " + str(triplet) + " avec changement de : " + str(int(row[4]) + int(row[5]) + float(row[6])) + "\n")
     stockage_triplets_v3[tab_fichiers_traites[i]] = "(" + str(pn_analogie) + ", " + str(pb_analogie) + ", " + str(g_analogie) + ")"
 fichier_reponses_3.close()
@@ -383,9 +383,9 @@ for i in range(len(tab_fichiers_traites)):
     triplet = stockage_triplets_v2[tab_fichiers_traites[i]].replace("(", "").replace(")", "").replace(" ","").split(",")
 
     # On calcule les pn, pb et gamma de la page TGT.
-    pn_analogie = int(triplet[0]) + int(row[4])
-    pb_analogie = int(triplet[1]) + int(row[5])
-    g_analogie = float(triplet[2]) + float(row[6])
+    pn_analogie = max(int(triplet[0]) + int(row[4]), 0)
+    pb_analogie = min(int(triplet[1]) + int(row[5]), 255)
+    g_analogie = max(float(triplet[2]) + float(row[6]), 0)
 
     fichier_reponses.write(tab_fichiers_traites[i] + " : (" + str(pn_analogie) + ", " + str(pb_analogie) + ", " + str(g_analogie) + ") depuis " + str(triplet) + " avec changement de : " + str(int(row[4]) + int(row[5]) + float(row[6])) + "\n")
     stockage_triplets_v4[tab_fichiers_traites[i]] = "(" + str(pn_analogie) + ", " + str(pb_analogie) + ", " + str(g_analogie) + ")"
@@ -440,7 +440,7 @@ for i in range(len(tab_fichiers_traites)):
         t = abs(tab_moyennes[i] - ng_1)/abs(ng_2 - ng_1)
         pn_3 = int((1 - t) * pn_1 + t * pn_2)
         pb_3 = int((1 - t) * pb_1 + t * pb_2)
-        gamma_3 = int((1 - t) * gamma_1 + t * gamma_2)
+        gamma_3 = float((1 - t) * gamma_1 + t * gamma_2)
         triplet_string_3 = "(" + str(pn_3) + ", " + \
             str(pb_3) + ", " + str(gamma_3) + ")"
 
@@ -458,7 +458,7 @@ conn.close()
 ###########################
 # Récupération de donéees #
 ###########################
-
+"""
 # Ecriture des données pour l'histogramme et les statistiques.
 fichier_donnees = open("donnees.csv", "w")
 # On ouvre le fichier excel
@@ -573,3 +573,4 @@ for fichier in stockage_triplets:
 fichier_scores.write(texte)
 
 print("Fin de l'écriture des scores dans le fichier 'scores.csv'")
+"""
