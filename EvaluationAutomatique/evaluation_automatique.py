@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 import cv2
 import time
@@ -44,13 +46,10 @@ baseDeCas = ["barb_0001-4133_1919_num_5_1_T1_0032_0000",
              "nbeur_0000-0007_1996_num_0_1_T1_0004_0000"]
 
 
-def calculer_difference(fichier1, fichier2):
+def calculer_difference(fichier1, fichier2, fichier_sortie):
     # Charger les deux images
     image1 = cv2.imread(fichier1)
     image2 = cv2.imread(fichier2)
-
-    # Mesurer le temps d'exécution
-    start_time = time.time()
 
     # Calculer la différence de chaque pixel entre les deux images
     diff = cv2.absdiff(image1, image2)
@@ -61,36 +60,60 @@ def calculer_difference(fichier1, fichier2):
     min_diff = np.min(diff)
     max_diff = np.max(diff)
 
-    # Afficher le temps d'exécution et les statistiques de la différence
-    print("Temps d'exécution : %s secondes" % (time.time() - start_time))
-    print("Différence moyenne : %s" % mean_diff)
-    print("Écart type de la différence : %s" % std_dev_diff)
-    print("Plus petite différence : %s" % min_diff)
-    print("Plus grande différence : %s" % max_diff)
-    # TODO PASSER CA EN ENREGISTREMENT DANS UN FICHIER
+    # Écrire les statistiques de la différence dans le fichier de sortie
+    with open(fichier_sortie, 'a') as f:
+        f.write(str(fichier2) + ', ' + str(mean_diff) + ', ' + str(std_dev_diff) + ', ' + str(min_diff) + ', ' +
+                str(max_diff) + '\n')
 
+
+debut = time.time()
+
+if os.path.exists("../datas/BasesDeCas/TestsAutomatiques/Approximation1x1/resultats.txt"):
+    os.remove("../datas/BasesDeCas/TestsAutomatiques/Approximation1x1/resultats.txt")
+    open("../datas/BasesDeCas/TestsAutomatiques/Approximation1x1/resultats.txt", 'w').close()
+if os.path.exists("../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/resultats.txt"):
+    os.remove("../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/resultats.txt")
+    open("../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/resultats.txt", 'w').close()
+if os.path.exists("../datas/BasesDeCas/TestsAutomatiques/Extrapolation1x1/resultats.txt"):
+    os.remove("../datas/BasesDeCas/TestsAutomatiques/Extrapolation1x1/resultats.txt")
+    open("../datas/BasesDeCas/TestsAutomatiques/Extrapolation1x1/resultats.txt", 'w').close()
+if os.path.exists("../datas/BasesDeCas/TestsAutomatiques/Extrapolation2x3/resultats.txt"):
+    os.remove("../datas/BasesDeCas/TestsAutomatiques/Extrapolation2x3/resultats.txt")
+    open("../datas/BasesDeCas/TestsAutomatiques/Extrapolation2x3/resultats.txt", 'w').close()
+if os.path.exists("../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/resultats.txt"):
+    os.remove("../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/resultats.txt")
+    open("../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/resultats.txt", 'w').close()
 
 # On évalue les images avec le moteur d'approximation 1x1
 for i in range(0, len(baseDeCas)):
     calculer_difference("../datas/BasesDeCas/TestsAutomatiques/Expert/" + baseDeCas[i] + ".png",
-                        "../datas/BasesDeCas/TestsAutomatiques/Approximation1x1/" + baseDeCas[i] + ".png")
+                        "../datas/BasesDeCas/TestsAutomatiques/Approximation1x1/" + baseDeCas[i] + ".png",
+                        "../datas/BasesDeCas/TestsAutomatiques/Approximation1x1/resultats.txt")
 
 # On évalue les images avec le moteur d'approximation 2x3
 for i in range(0, len(baseDeCas)):
     calculer_difference("../datas/BasesDeCas/TestsAutomatiques/Expert/" + baseDeCas[i] + ".png",
-                        "../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/" + baseDeCas[i] + ".png")
+                        "../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/" + baseDeCas[i] + ".png",
+                        "../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/resultats.txt")
 
 # On évalue les images avec le moteur d'extrapolation 1x1
 for i in range(0, len(baseDeCas)):
     calculer_difference("../datas/BasesDeCas/TestsAutomatiques/Expert/" + baseDeCas[i] + ".png",
-                        "../datas/BasesDeCas/TestsAutomatiques/Extrapolation1x1/" + baseDeCas[i] + ".png")
+                        "../datas/BasesDeCas/TestsAutomatiques/Extrapolation1x1/" + baseDeCas[i] + ".png",
+                        "../datas/BasesDeCas/TestsAutomatiques/Extrapolation1x1/resultats.txt")
 
 # On évalue les images avec le moteur d'extrapolation 2x3
 for i in range(0, len(baseDeCas)):
     calculer_difference("../datas/BasesDeCas/TestsAutomatiques/Expert/" + baseDeCas[i] + ".png",
-                        "../datas/BasesDeCas/TestsAutomatiques/Extrapolation2x3/" + baseDeCas[i] + ".png")
+                        "../datas/BasesDeCas/TestsAutomatiques/Extrapolation2x3/" + baseDeCas[i] + ".png",
+                        "../datas/BasesDeCas/TestsAutomatiques/Extrapolation2x3/resultats.txt")
 
 # On évalue les images avec le moteur d'interpolation 1x1
 for i in range(0, len(baseDeCas)):
     calculer_difference("../datas/BasesDeCas/TestsAutomatiques/Expert/" + baseDeCas[i] + ".png",
-                        "../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/" + baseDeCas[i] + ".png")
+                        "../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/" + baseDeCas[i] + ".png",
+                        "../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/resultats.txt")
+
+fin = time.time()
+temps_execution = fin - debut
+print("Temps d'exécution : ", temps_execution, " secondes")
