@@ -32,9 +32,7 @@ username : VOTRE USERNAME BDD
 password : VOTRE MOT DE PASSE BDD
 database : Georges
 ```
-Il faut également ajouter à la racine du projet le dossier `datas`, qui contient lui-même les dossiers `Fascicules` et `OCR`, ainsi que `Triplets.xlsx`, la feuille de calcul format excel contenant les Triplets des Fascicules à traiter. <br>
-Par la suite il faut simplement mettre les fascicules à traiter ainsi que les OCR respectivement dans leur dossier dédié, `Fascicules` et `OCR`.
-
+Il faut également ajouter à la racine du projet le dossier `datas`.
 Nous travaillons avec l'architecture suivante pour le dossier `datas` :
 ```
 ├───BasesDeCas
@@ -47,8 +45,20 @@ Nous travaillons avec l'architecture suivante pour le dossier `datas` :
 │   │   ├───Interpolation1x1
 │   │   └───Origine
 │   └───TestsManuels
-│       ├───propre
-│       └───sale
+│       ├───Propre
+│       │   ├───Approximation1x1
+│       │   ├───Approximation2x3
+│       │   ├───Extrapolation1x1
+│       │   ├───Extrapolation2x3
+│       │   ├───Interpolation1x1
+│       │   └───Origine
+│       └───Sale
+│           ├───Approximation1x1
+│           ├───Approximation2x3
+│           ├───Extrapolation1x1
+│           ├───Extrapolation2x3
+│           ├───Interpolation1x1
+│           └───Origine
 ├───Fascicules
 │   ├───barb_0001-4133_1919_num_5_1
 │   │   ├───Fantomes_Couvertures_Figures
