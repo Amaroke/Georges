@@ -254,6 +254,136 @@ tripletsInterpolation = [
     ["nbeur_0000-0007_1996_num_0_1_T1_0004_0000", 30, 240, 1.0]
 ]
 
+tripletsApproximation1x1Propre = [
+    ["barb_0001-4133_1919_num_5_1_T1_0021_0000", 20, 250, 0.7],
+    ["barb_0001-4133_1919_num_5_1_T1_0613_0000", 60, 240, 1.0],
+    ["barb_0001-4133_1920_num_6_1_T1_0012_0000", 0, 225, 0.8],
+    ["barb_0001-4133_1920_num_6_1_T1_0296_0000", 50, 250, 1.0],
+    ["barb_0001-4133_1929_num_15_1_T1_0235_0000", 60, 240, 1.0],
+    ["barb_0001-4133_1939_num_25_1_T1_0321_0000", 30, 250, 0.85],
+    ["barb_0001-4133_1941_num_27_1_T1_0022_0000", 30, 240, 1.0],
+    ["barb_0001-4133_1963_num_49_1_T1_0135_0000", 60, 240, 1.0],
+    ["barb_0001-4141_1907_num_9_1_T1_0675_0000", 0, 240, 0.9],
+    ["rnord_0035-2624_1934_num_20_78_T1_0117_0000", 0, 230, 0.9],
+    ["rnord_0035-2624_1952_num_34_133_T1_0080_0000", 0, 235, 0.9],
+]
+
+tripletsApproximation2x3Propre = [
+    ["barb_0001-4133_1919_num_5_1_T1_0021_0000", 0, 225, 0.8],
+    ["barb_0001-4133_1919_num_5_1_T1_0613_0000", 30, 240, 0.7],
+    ["barb_0001-4133_1920_num_6_1_T1_0012_0000", 30, 250, 0.85],
+    ["barb_0001-4133_1920_num_6_1_T1_0296_0000", 0, 240, 0.9],
+    ["barb_0001-4133_1929_num_15_1_T1_0235_0000", 0, 225, 0.8],
+    ["barb_0001-4133_1939_num_25_1_T1_0321_0000", 60, 240, 1.0],
+    ["barb_0001-4133_1941_num_27_1_T1_0022_0000", 30, 250, 0.85],
+    ["barb_0001-4133_1963_num_49_1_T1_0135_0000", 0, 225, 0.8],
+    ["barb_0001-4141_1907_num_9_1_T1_0675_0000", 0, 230, 0.9],
+    ["rnord_0035-2624_1934_num_20_78_T1_0117_0000", 30, 240, 1.0],
+    ["rnord_0035-2624_1952_num_34_133_T1_0080_0000", 30, 245, 1.0],
+]
+
+tripletsExtrapolation1x1Propre = [
+    ["barb_0001-4133_1919_num_5_1_T1_0021_0000", 20, 250, 0.7],
+    ["barb_0001-4133_1919_num_5_1_T1_0613_0000", 60, 240, 1.0],
+    ["barb_0001-4133_1920_num_6_1_T1_0012_0000", 0, 225, 0.8],
+    ["barb_0001-4133_1920_num_6_1_T1_0296_0000", 50, 250, 1.0],
+    ["barb_0001-4133_1929_num_15_1_T1_0235_0000", 60, 240, 1.0],
+    ["barb_0001-4133_1939_num_25_1_T1_0321_0000", 30, 250, 0.85],
+    ["barb_0001-4133_1941_num_27_1_T1_0022_0000", 30, 240, 1.0],
+    ["barb_0001-4133_1963_num_49_1_T1_0135_0000", 60, 240, 1.0],
+    ["barb_0001-4141_1907_num_9_1_T1_0675_0000", 0, 240, 0.9],
+    ["rnord_0035-2624_1934_num_20_78_T1_0117_0000", 0, 230, 0.9],
+    ["rnord_0035-2624_1952_num_34_133_T1_0080_0000", 0, 235, 0.9],
+]
+
+tripletsExtrapolation2x3Propre = [
+    ["barb_0001-4133_1919_num_5_1_T1_0021_0000", 0, 225, 0.8],
+    ["barb_0001-4133_1919_num_5_1_T1_0613_0000", 30, 240, 0.7],
+    ["barb_0001-4133_1920_num_6_1_T1_0012_0000", 30, 250, 0.85],
+    ["barb_0001-4133_1920_num_6_1_T1_0296_0000", 0, 240, 0.9],
+    ["barb_0001-4133_1929_num_15_1_T1_0235_0000", 0, 225, 0.8],
+    ["barb_0001-4133_1939_num_25_1_T1_0321_0000", 60, 240, 1.0],
+    ["barb_0001-4133_1941_num_27_1_T1_0022_0000", 30, 250, 0.85],
+    ["barb_0001-4133_1963_num_49_1_T1_0135_0000", 0, 225, 0.8],
+    ["barb_0001-4141_1907_num_9_1_T1_0675_0000", 0, 230, 0.9],
+    ["rnord_0035-2624_1934_num_20_78_T1_0117_0000", 30, 240, 1.0],
+    ["rnord_0035-2624_1952_num_34_133_T1_0080_0000", 30, 245, 1.0],
+]
+
+tripletsInterpolationPropre = [
+    ["barb_0001-4133_1919_num_5_1_T1_0021_0000", 20, 250, 0.7],
+    ["barb_0001-4133_1919_num_5_1_T1_0613_0000", 59, 240, 0.99],
+    ["barb_0001-4133_1920_num_6_1_T1_0012_0000", 0, 229, 0.83],
+    ["barb_0001-4133_1920_num_6_1_T1_0296_0000", 44, 247, 1.0],
+    ["barb_0001-4133_1929_num_15_1_T1_0235_0000", 36, 241, 0.92],
+    ["barb_0001-4133_1939_num_25_1_T1_0321_0000", 15, 247, 0.83],
+    ["barb_0001-4133_1941_num_27_1_T1_0022_0000", 25, 237, 0.97],
+    ["barb_0001-4133_1963_num_49_1_T1_0135_0000", 47, 236, 0.96],
+    ["barb_0001-4141_1907_num_9_1_T1_0675_0000", 20, 244, 0.94],
+    ["rnord_0035-2624_1934_num_20_78_T1_0117_0000", 0, 230, 0.90],
+    ["rnord_0035-2624_1952_num_34_133_T1_0080_0000", 0, 235, 0.90],
+]
+
+tripletsApproximation1x1Sale = [
+    ["barb_0001-4133_1919_num_5_1_T1_0005_0000", 30, 240, 0.7],
+    ["barb_0001-4133_1919_num_5_1_T1_0006_0000", 20, 250, 0.7],
+    ["barb_0001-4141_1910_num_12_1_F_0001_0000", 50, 210, 1.0],
+    ["barb_0001-4141_1910_num_12_1_F_0002_0000", 30, 220, 1.0],
+    ["barb_0001-4141_1910_num_12_1_T1_0017_0000", 30, 240, 1.0],
+    ["barb_0001-4141_1919_num_5_1_T1_0007_0000", 0, 230, 0.7],
+    ["rnord_0035-2624_1927_num_13_51_T1_0172_0000", 30, 240, 1.0],
+    ["rnord_0035-2624_1927_num_13_51_T1_0180_0001", 30, 220, 1.0],
+    ["rnord_0035-2624_1928_num_14_53_T1_0023_0000", 30, 240, 1.0]
+]
+
+tripletsApproximation2x3Sale = [
+    ["barb_0001-4133_1919_num_5_1_T1_0005_0000", 0, 235, 0.9],
+    ["barb_0001-4133_1919_num_5_1_T1_0006_0000", 0, 245, 0.8],
+    ["barb_0001-4141_1910_num_12_1_F_0001_0000", 50, 210, 1.0],
+    ["barb_0001-4141_1910_num_12_1_F_0002_0000", 30, 220, 1.0],
+    ["barb_0001-4141_1910_num_12_1_T1_0017_0000", 0, 235, 0.9],
+    ["barb_0001-4141_1919_num_5_1_T1_0007_0000", 20, 250, 0.7],
+    ["rnord_0035-2624_1927_num_13_51_T1_0172_0000", 30, 240, 1.0],
+    ["rnord_0035-2624_1927_num_13_51_T1_0180_0001", 30, 220, 1.0],
+    ["rnord_0035-2624_1928_num_14_53_T1_0023_0000", 30, 240, 1.0]
+]
+
+tripletsExtrapolation1x1Sale = [
+    ["barb_0001-4133_1919_num_5_1_T1_0005_0000", 30, 240, 0.7],
+    ["barb_0001-4133_1919_num_5_1_T1_0006_0000", 20, 260, 0.55],
+    ["barb_0001-4141_1910_num_12_1_F_0001_0000", 50, 210, 1.0],
+    ["barb_0001-4141_1910_num_12_1_F_0002_0000", 30, 220, 1.0],
+    ["barb_0001-4141_1910_num_12_1_T1_0017_0000", 30, 240, 1.0],
+    ["barb_0001-4141_1919_num_5_1_T1_0007_0000", 0, 230, 0.7],
+    ["rnord_0035-2624_1927_num_13_51_T1_0172_0000", 30, 240, 1.0],
+    ["rnord_0035-2624_1927_num_13_51_T1_0180_0001", 30, 220, 1.0],
+    ["rnord_0035-2624_1928_num_14_53_T1_0023_0000", 0, 265, 0.8]
+]
+
+tripletsExtrapolation2x3Sale = [
+    ["barb_0001-4133_1919_num_5_1_T1_0005_0000", 0, 235, 0.9],
+    ["barb_0001-4133_1919_num_5_1_T1_0006_0000", 0, 245, 0.8],
+    ["barb_0001-4141_1910_num_12_1_F_0001_0000", 50, 210, 1.0],
+    ["barb_0001-4141_1910_num_12_1_F_0002_0000", 0, 220, 1.0],
+    ["barb_0001-4141_1910_num_12_1_T1_0017_0000", 0, 235, 0.9],
+    ["barb_0001-4141_1919_num_5_1_T1_0007_0000", 20, 250, 0.7],
+    ["rnord_0035-2624_1927_num_13_51_T1_0172_0000", 30, 240, 1.0],
+    ["rnord_0035-2624_1927_num_13_51_T1_0180_0001", 50, 220, 0.85],
+    ["rnord_0035-2624_1928_num_14_53_T1_0023_0000", 30, 250, 0.9]
+]
+
+tripletsInterpolationSale = [
+    ["barb_0001-4133_1919_num_5_1_T1_0005_0000", 30, 240, 0.71],
+    ["barb_0001-4133_1919_num_5_1_T1_0006_0000", 12, 244, 0.77],
+    ["barb_0001-4141_1910_num_12_1_F_0001_0000", 48, 210, 1.0],
+    ["barb_0001-4141_1910_num_12_1_F_0002_0000", 30, 220, 1.0],
+    ["barb_0001-4141_1910_num_12_1_T1_0017_0000", 25, 239, 0.98],
+    ["barb_0001-4141_1919_num_5_1_T1_0007_0000", 0, 234, 0.75],
+    ["rnord_0035-2624_1927_num_13_51_T1_0172_0000", 23, 237, 0.98],
+    ["rnord_0035-2624_1927_num_13_51_T1_0180_0001", 30, 220, 1.0],
+    ["rnord_0035-2624_1928_num_14_53_T1_0023_0000", 30, 230, 1.0]
+]
+
 
 def appliquer_triplets_base_automatique(fichier, noir, blanc, gamma, methode):
     # Ouvrir l'image et la convertir en tableau NumPy
@@ -277,6 +407,54 @@ def appliquer_triplets_base_automatique(fichier, noir, blanc, gamma, methode):
 
     # Sauvegarder l'image modifiée
     image.save("../datas/BasesDeCas/TestsAutomatiques/" + methode + "/" + fichier + ".png")
+
+
+def appliquer_triplets_base_propre(fichier, noir, blanc, gamma, methode):
+    # Ouvrir l'image et la convertir en tableau NumPy
+    image = np.array(Image.open("../datas/BasesDeCas/TestsManuels/Propre/Origine/" + fichier + ".png"))
+
+    # Appliquer le point noir et le point blanc
+    image = np.clip(image, noir, blanc)
+
+    # Normaliser l'image
+    image = (image - noir) / (blanc - noir)
+
+    # Appliquer le gamma
+    image = image ** (1 / gamma)
+
+    # Dénormaliser l'image
+    image = image * (blanc - noir) + noir
+
+    # Arrondir et convertir le tableau NumPy en image PIL
+    image = np.round(image).astype(np.uint8)
+    image = Image.fromarray(image)
+
+    # Sauvegarder l'image modifiée
+    image.save("../datas/BasesDeCas/TestsManuels/Propre/" + methode + "/" + fichier + ".png")
+
+
+def appliquer_triplets_base_sale(fichier, noir, blanc, gamma, methode):
+    # Ouvrir l'image et la convertir en tableau NumPy
+    image = np.array(Image.open("../datas/BasesDeCas/TestsManuels/Sale/Origine/" + fichier + ".png"))
+
+    # Appliquer le point noir et le point blanc
+    image = np.clip(image, noir, blanc)
+
+    # Normaliser l'image
+    image = (image - noir) / (blanc - noir)
+
+    # Appliquer le gamma
+    image = image ** (1 / gamma)
+
+    # Dénormaliser l'image
+    image = image * (blanc - noir) + noir
+
+    # Arrondir et convertir le tableau NumPy en image PIL
+    image = np.round(image).astype(np.uint8)
+    image = Image.fromarray(image)
+
+    # Sauvegarder l'image modifiée
+    image.save("../datas/BasesDeCas/TestsManuels/Sale/" + methode + "/" + fichier + ".png")
 
 
 debut = time.time()
@@ -334,6 +512,96 @@ for image in tripletsInterpolation:
     blanc = image[2]
     gamma = image[3]
     appliquer_triplets_base_automatique(fichier, noir, blanc, gamma, "Interpolation1x1")
+
+# On génère les images en appliquant les triplets approximation 1x1
+for image in tripletsApproximation1x1Propre:
+    # Afficher la taille des tableaux
+    fichier = image[0]
+    noir = image[1]
+    blanc = image[2]
+    gamma = image[3]
+    appliquer_triplets_base_propre(fichier, noir, blanc, gamma, "Approximation1x1")
+
+# On génère les images en appliquant les triplets approximation 2x3
+for image in tripletsApproximation2x3Propre:
+    # Afficher la taille des tableaux
+    fichier = image[0]
+    noir = image[1]
+    blanc = image[2]
+    gamma = image[3]
+    appliquer_triplets_base_propre(fichier, noir, blanc, gamma, "Approximation2x3")
+
+# On génère les images en appliquant les triplets extrapolation 1x1
+for image in tripletsExtrapolation1x1Propre:
+    # Afficher la taille des tableaux
+    fichier = image[0]
+    noir = image[1]
+    blanc = image[2]
+    gamma = image[3]
+    appliquer_triplets_base_propre(fichier, noir, blanc, gamma, "Extrapolation1x1")
+
+# On génère les images en appliquant les triplets extrapolation 2x3
+for image in tripletsExtrapolation2x3Propre:
+    # Afficher la taille des tableaux
+    fichier = image[0]
+    noir = image[1]
+    blanc = image[2]
+    gamma = image[3]
+    appliquer_triplets_base_propre(fichier, noir, blanc, gamma, "Extrapolation2x3")
+
+# On génère les images en appliquant les triplets interpolation
+for image in tripletsInterpolationPropre:
+    # Afficher la taille des tableaux
+    fichier = image[0]
+    noir = image[1]
+    blanc = image[2]
+    gamma = image[3]
+    appliquer_triplets_base_propre(fichier, noir, blanc, gamma, "Interpolation1x1")
+
+# On génère les images en appliquant les triplets approximation 1x1
+for image in tripletsApproximation1x1Sale:
+    # Afficher la taille des tableaux
+    fichier = image[0]
+    noir = image[1]
+    blanc = image[2]
+    gamma = image[3]
+    appliquer_triplets_base_sale(fichier, noir, blanc, gamma, "Approximation1x1")
+
+# On génère les images en appliquant les triplets approximation 2x3
+for image in tripletsApproximation2x3Sale:
+    # Afficher la taille des tableaux
+    fichier = image[0]
+    noir = image[1]
+    blanc = image[2]
+    gamma = image[3]
+    appliquer_triplets_base_sale(fichier, noir, blanc, gamma, "Approximation2x3")
+
+# On génère les images en appliquant les triplets extrapolation 1x1
+for image in tripletsExtrapolation1x1Sale:
+    # Afficher la taille des tableaux
+    fichier = image[0]
+    noir = image[1]
+    blanc = image[2]
+    gamma = image[3]
+    appliquer_triplets_base_sale(fichier, noir, blanc, gamma, "Extrapolation1x1")
+
+# On génère les images en appliquant les triplets extrapolation 2x3
+for image in tripletsExtrapolation2x3Sale:
+    # Afficher la taille des tableaux
+    fichier = image[0]
+    noir = image[1]
+    blanc = image[2]
+    gamma = image[3]
+    appliquer_triplets_base_sale(fichier, noir, blanc, gamma, "Extrapolation2x3")
+
+# On génère les images en appliquant les triplets interpolation
+for image in tripletsInterpolationSale:
+    # Afficher la taille des tableaux
+    fichier = image[0]
+    noir = image[1]
+    blanc = image[2]
+    gamma = image[3]
+    appliquer_triplets_base_sale(fichier, noir, blanc, gamma, "Interpolation1x1")
 
 fin = time.time()
 temps_execution = fin - debut
