@@ -387,10 +387,11 @@ tripletsInterpolationSale = [
 
 def appliquer_triplets_base_automatique(fichier, noir, blanc, gamma, methode):
     # Ouvrir l'image et la convertir en tableau NumPy
-    image = np.array(Image.open("../datas/BasesDeCas/TestsAutomatiques/Origine/" + fichier + ".png"))
+    image = np.array(Image.open("../datas/BasesDeCas/TestsAutomatiques/Origine/" + fichier + ".png").convert("L"))
 
     # Appliquer le point noir et le point blanc
-    image = np.clip(image, noir, blanc)
+    image = np.where(image < noir, 0, image)
+    image = np.where(image > blanc, 255, image)
 
     # Normaliser l'image
     image = (image - noir) / (blanc - noir)
@@ -411,10 +412,11 @@ def appliquer_triplets_base_automatique(fichier, noir, blanc, gamma, methode):
 
 def appliquer_triplets_base_propre(fichier, noir, blanc, gamma, methode):
     # Ouvrir l'image et la convertir en tableau NumPy
-    image = np.array(Image.open("../datas/BasesDeCas/TestsManuels/Propre/Origine/" + fichier + ".png"))
+    image = np.array(Image.open("../datas/BasesDeCas/TestsManuels/Propre/Origine/" + fichier + ".png").convert("L"))
 
     # Appliquer le point noir et le point blanc
-    image = np.clip(image, noir, blanc)
+    image = np.where(image < noir, 0, image)
+    image = np.where(image > blanc, 255, image)
 
     # Normaliser l'image
     image = (image - noir) / (blanc - noir)
@@ -435,10 +437,11 @@ def appliquer_triplets_base_propre(fichier, noir, blanc, gamma, methode):
 
 def appliquer_triplets_base_sale(fichier, noir, blanc, gamma, methode):
     # Ouvrir l'image et la convertir en tableau NumPy
-    image = np.array(Image.open("../datas/BasesDeCas/TestsManuels/Sale/Origine/" + fichier + ".png"))
+    image = np.array(Image.open("../datas/BasesDeCas/TestsManuels/Sale/Origine/" + fichier + ".png").convert("L"))
 
     # Appliquer le point noir et le point blanc
-    image = np.clip(image, noir, blanc)
+    image = np.where(image < noir, 0, image)
+    image = np.where(image > blanc, 255, image)
 
     # Normaliser l'image
     image = (image - noir) / (blanc - noir)
