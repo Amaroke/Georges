@@ -390,17 +390,17 @@ def appliquer_triplets_base_automatique(fichier, noir, blanc, gamma, methode):
     image = np.array(Image.open("../datas/BasesDeCas/TestsAutomatiques/Origine/" + fichier + ".png").convert("L"))
 
     # Appliquer le point noir et le point blanc
-    image = np.where(image < noir, 0, image)
-    image = np.where(image > blanc, 255, image)
+    image = np.where(image <= noir, 0, image)
+    image = np.where(image >= blanc, 255, image)
 
     # Normaliser l'image
-    image = (image - noir) / (blanc - noir)
+    image = image / 255
 
     # Appliquer le gamma
     image = image ** (1 / gamma)
 
     # Dénormaliser l'image
-    image = image * (blanc - noir) + noir
+    image = image * 255
 
     # Arrondir et convertir le tableau NumPy en image PIL
     image = np.round(image).astype(np.uint8)
@@ -415,17 +415,17 @@ def appliquer_triplets_base_propre(fichier, noir, blanc, gamma, methode):
     image = np.array(Image.open("../datas/BasesDeCas/TestsManuels/Propre/Origine/" + fichier + ".png").convert("L"))
 
     # Appliquer le point noir et le point blanc
-    image = np.where(image < noir, 0, image)
-    image = np.where(image > blanc, 255, image)
+    image = np.where(image <= noir, 0, image)
+    image = np.where(image >= blanc, 255, image)
 
     # Normaliser l'image
-    image = (image - noir) / (blanc - noir)
+    image = image / 255
 
     # Appliquer le gamma
     image = image ** (1 / gamma)
 
     # Dénormaliser l'image
-    image = image * (blanc - noir) + noir
+    image = image * 255
 
     # Arrondir et convertir le tableau NumPy en image PIL
     image = np.round(image).astype(np.uint8)
@@ -440,17 +440,17 @@ def appliquer_triplets_base_sale(fichier, noir, blanc, gamma, methode):
     image = np.array(Image.open("../datas/BasesDeCas/TestsManuels/Sale/Origine/" + fichier + ".png").convert("L"))
 
     # Appliquer le point noir et le point blanc
-    image = np.where(image < noir, 0, image)
-    image = np.where(image > blanc, 255, image)
+    image = np.where(image <= noir, 0, image)
+    image = np.where(image >= blanc, 255, image)
 
     # Normaliser l'image
-    image = (image - noir) / (blanc - noir)
+    image = image / 255
 
     # Appliquer le gamma
     image = image ** (1 / gamma)
 
     # Dénormaliser l'image
-    image = image * (blanc - noir) + noir
+    image = image * 255
 
     # Arrondir et convertir le tableau NumPy en image PIL
     image = np.round(image).astype(np.uint8)
