@@ -385,6 +385,14 @@ tripletsInterpolationSale = [
 ]
 
 
+def lookup(pixel, params, delta, invGamma):
+    if pixel < params["minLevel"]:
+        return 0
+    elif pixel > params["maxLevel"]:
+        return 255
+    return int(((pixel - params["minLevel"]) / delta) ** invGamma * 255)
+
+
 def appliquer_triplets_base_automatique(fichier, noir, blanc, gamma, methode):
     # Ouvrir l'image et la convertir en tableau NumPy
     image = np.array(Image.open("../datas/BasesDeCas/TestsAutomatiques/Origine/" + fichier + ".png").convert("L"))
@@ -396,11 +404,13 @@ def appliquer_triplets_base_automatique(fichier, noir, blanc, gamma, methode):
     # Normaliser l'image
     image = image / 255
 
-    # Appliquer le gamma
-    image = image ** (1 / gamma)
+    # Calculer les paramètres de lookup
+    params = {"minLevel": noir / 255, "maxLevel": blanc / 255}
+    delta = params["maxLevel"] - params["minLevel"]
+    invGamma = 1.0 / gamma
 
-    # Dénormaliser l'image
-    image = image * 255
+    # Appliquer la fonction de lookup
+    image = np.vectorize(lambda x: lookup(x, params, delta, invGamma))(image)
 
     # Arrondir et convertir le tableau NumPy en image PIL
     image = np.round(image).astype(np.uint8)
@@ -418,14 +428,13 @@ def appliquer_triplets_base_propre(fichier, noir, blanc, gamma, methode):
     image = np.where(image <= noir, 0, image)
     image = np.where(image >= blanc, 255, image)
 
-    # Normaliser l'image
-    image = image / 255
+    # Calculer les paramètres de lookup
+    params = {"minLevel": noir / 255, "maxLevel": blanc / 255}
+    delta = params["maxLevel"] - params["minLevel"]
+    invGamma = 1.0 / gamma
 
-    # Appliquer le gamma
-    image = image ** (1 / gamma)
-
-    # Dénormaliser l'image
-    image = image * 255
+    # Appliquer la fonction de lookup
+    image = np.vectorize(lambda x: lookup(x, params, delta, invGamma))(image)
 
     # Arrondir et convertir le tableau NumPy en image PIL
     image = np.round(image).astype(np.uint8)
@@ -443,14 +452,13 @@ def appliquer_triplets_base_sale(fichier, noir, blanc, gamma, methode):
     image = np.where(image <= noir, 0, image)
     image = np.where(image >= blanc, 255, image)
 
-    # Normaliser l'image
-    image = image / 255
+    # Calculer les paramètres de lookup
+    params = {"minLevel": noir / 255, "maxLevel": blanc / 255}
+    delta = params["maxLevel"] - params["minLevel"]
+    invGamma = 1.0 / gamma
 
-    # Appliquer le gamma
-    image = image ** (1 / gamma)
-
-    # Dénormaliser l'image
-    image = image * 255
+    # Appliquer la fonction de lookup
+    image = np.vectorize(lambda x: lookup(x, params, delta, invGamma))(image)
 
     # Arrondir et convertir le tableau NumPy en image PIL
     image = np.round(image).astype(np.uint8)
@@ -608,4 +616,4 @@ for image in tripletsInterpolationSale:
 
 fin = time.time()
 temps_execution = fin - debut
-print("Temps d'exécution : ", temps_execution, " secondes")
+print("Temps d'exécution : ", temps_execution*10, " secondes")
