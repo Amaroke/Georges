@@ -473,6 +473,7 @@ def appliquer_triplets_base_sale(fichier, noir, blanc, gamma, methode):
 
 debut = time.time()
 
+"""
 # On génère les images en appliquant les triplets experts
 for image in tripletsExpert:
     # Afficher la taille des tableaux
@@ -526,7 +527,7 @@ for image in tripletsInterpolation:
     blanc = image[2]
     gamma = image[3]
     appliquer_triplets_base_automatique(fichier, noir, blanc, gamma, "Interpolation1x1")
-
+"""
 # On génère les images en appliquant les triplets approximation 1x1
 for image in tripletsApproximation1x1Propre:
     # Afficher la taille des tableaux
