@@ -413,8 +413,7 @@ def appliquer_triplets_base_automatique(fichier, noir, blanc, gamma, methode):
     image = np.vectorize(lambda x: lookup(x, params, delta, invGamma))(image)
 
     # Arrondir et convertir le tableau NumPy en image PIL
-    image = np.round(image).astype(np.uint8)
-    image = Image.fromarray(image)
+    image = Image.fromarray(image.astype(np.uint8))
 
     # Sauvegarder l'image modifiée
     image.save("../datas/BasesDeCas/TestsAutomatiques/" + methode + "/" + fichier + ".png")
@@ -428,6 +427,9 @@ def appliquer_triplets_base_propre(fichier, noir, blanc, gamma, methode):
     image = np.where(image <= noir, 0, image)
     image = np.where(image >= blanc, 255, image)
 
+    # Normaliser l'image
+    image = image / 255
+
     # Calculer les paramètres de lookup
     params = {"minLevel": noir / 255, "maxLevel": blanc / 255}
     delta = params["maxLevel"] - params["minLevel"]
@@ -437,8 +439,7 @@ def appliquer_triplets_base_propre(fichier, noir, blanc, gamma, methode):
     image = np.vectorize(lambda x: lookup(x, params, delta, invGamma))(image)
 
     # Arrondir et convertir le tableau NumPy en image PIL
-    image = np.round(image).astype(np.uint8)
-    image = Image.fromarray(image)
+    image = Image.fromarray(image.astype(np.uint8))
 
     # Sauvegarder l'image modifiée
     image.save("../datas/BasesDeCas/TestsManuels/Propre/" + methode + "/" + fichier + ".png")
@@ -452,6 +453,9 @@ def appliquer_triplets_base_sale(fichier, noir, blanc, gamma, methode):
     image = np.where(image <= noir, 0, image)
     image = np.where(image >= blanc, 255, image)
 
+    # Normaliser l'image
+    image = image / 255
+
     # Calculer les paramètres de lookup
     params = {"minLevel": noir / 255, "maxLevel": blanc / 255}
     delta = params["maxLevel"] - params["minLevel"]
@@ -461,8 +465,7 @@ def appliquer_triplets_base_sale(fichier, noir, blanc, gamma, methode):
     image = np.vectorize(lambda x: lookup(x, params, delta, invGamma))(image)
 
     # Arrondir et convertir le tableau NumPy en image PIL
-    image = np.round(image).astype(np.uint8)
-    image = Image.fromarray(image)
+    image = Image.fromarray(image.astype(np.uint8))
 
     # Sauvegarder l'image modifiée
     image.save("../datas/BasesDeCas/TestsManuels/Sale/" + methode + "/" + fichier + ".png")
@@ -616,4 +619,4 @@ for image in tripletsInterpolationSale:
 
 fin = time.time()
 temps_execution = fin - debut
-print("Temps d'exécution : ", temps_execution*10, " secondes")
+print("Temps d'exécution : ", temps_execution, " secondes")
