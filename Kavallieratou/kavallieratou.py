@@ -30,7 +30,7 @@ while i <= 15:
     image = gray_eq
 
 # Binarisation de l'image
-gray_bin = np.zeros_like(avg_pixel_val)
+gray_bin = np.zeros_like(image)
 gray_bin[image > avg_pixel_val] = 1
 
 # Enregistrer l'image finale
