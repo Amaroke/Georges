@@ -1,37 +1,56 @@
-import sys
-
+import os
+import shutil
+from PIL import Image
 import numpy as np
+from skimage import exposure
 from matplotlib import pyplot as plt
-from skimage import io
 
-# Charger l'image
-image = io.imread(sys.argv[1])
 
-# On fait 15 itérations
-i = 1
-avg_pixel_val = np.mean(image)
-while i <= 15:
+def effectuer_traitement(nom_image, chemin):
+    if os.path.exists(nom_image):
+        shutil.rmtree(nom_image)
+    os.makedirs(nom_image)
 
-    # Calcul de la moyenne des valeurs de pixels de l'image
-    avg_pixel_val = np.mean(image)
+    # Chargement de l'image
+    img = Image.open(chemin)
 
-    # Soustraction de la moyenne de tous les pixels de l'image
-    gray_sub = image - avg_pixel_val
+    # Conversion de l'image en tableau NumPy
+    img_array = np.array(img)
 
-    # Égalisation de l'histogramme
-    gray_eq = np.uint8(255 * (gray_sub - np.min(gray_sub)) / (np.max(gray_sub) - np.min(gray_sub)))
+    i = 1
+    while i <= 10:
+        # Soustraction de la moyenne à tous les pixels de l'image
+        img_array = img_array - np.mean(img_array)
 
-    # Enregistrement de l'image binaire
-    plt.imsave(f'{sys.argv[1]}_iteration{i}.png', gray_eq, cmap='gray')
+        # Normalisation de l'image sur 0 255
+        img_array = (img_array - np.min(img_array)) / (np.max(img_array) - np.min(img_array)) * 255
 
-    i += 1
+        # Égalisation de l'histogramme avec un mask autour de la valeur moyenne
+        img_array = exposure.equalize_hist(img_array, mask=img_array < np.mean(img_array))
 
-    # Mise à jour de l'image en niveaux de gris pour la prochaine itération
-    image = gray_eq
+        # Enregistrement de l'image itérée
+        plt.imsave(f'{nom_image}/iteration{i}.png', img_array, cmap='gray')
 
-# Binarisation de l'image
-gray_bin = np.zeros_like(image)
-gray_bin[image > avg_pixel_val] = 1
+        i += 1
 
-# Enregistrer l'image finale
-plt.imsave(f'{sys.argv[1]}_iteration.png', gray_bin, cmap='gray')
+
+effectuer_traitement("rnord_0035-2624_1989_num_71_282_T1_0687_0000",
+                     "../datas/Fascicules/rnord_0035-2624_1989_num_71_282/Pages_volume/GreyScale/rnord_0035"
+                     "-2624_1989_num_71_282_T1_0687_0000.png")
+effectuer_traitement("barb_0001-4133_1920_num_6_1_T1_0035_0000",
+                     "../datas/Fascicules/barb_0001-4133_1920_num_6_1/Pages_volume/GreyScale/barb_0001"
+                     "-4133_1920_num_6_1_T1_0035_0000.png")
+effectuer_traitement("barb_0001-4133_1920_num_6_1_T1_0417_0000",
+                     "../datas/Fascicules/barb_0001-4133_1920_num_6_1/Pages_volume/GreyScale/barb_0001"
+                     "-4133_1920_num_6_1_T1_0417_0000.png")
+effectuer_traitement("barb_0001-4141_1910_num_12_1_F_0002_0000",
+                     "../datas/BasesDeCas/TestsManuels/Sale/Origine/barb_0001-4141_1910_num_12_1_F_0002_0000.png")
+effectuer_traitement("rnord_0035-2624_1994_num_76_306_T1_0471_0000",
+                     "../datas/Fascicules/rnord_0035-2624_1994_num_76_306/Pages_volume/GreyScale/rnord_0035"
+                     "-2624_1994_num_76_306_T1_0471_0000.png")
+effectuer_traitement("rnord_0035-2624_1994_num_76_306_T1_0564_0000",
+                     "../datas/Fascicules/rnord_0035-2624_1994_num_76_306/Pages_volume/GreyScale/rnord_0035"
+                     "-2624_1994_num_76_306_T1_0564_0000.png")
+effectuer_traitement("rnord_0035-2624_1991_num_73_290_T1_0436_0000",
+                     "../datas/Fascicules/rnord_0035-2624_1991_num_73_290/Pages_volume/GreyScale/rnord_0035"
+                     "-2624_1991_num_73_290_T1_0436_0000.png")

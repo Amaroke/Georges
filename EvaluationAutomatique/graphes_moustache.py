@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from matplotlib import ticker
 
 
 def afficher_boites_moustaches(data):
@@ -6,7 +7,7 @@ def afficher_boites_moustaches(data):
     for i in range(5):
         # On génère le diagramme moustache pour un moteur
         box_data = axs[i].boxplot(data[i])
-        # On mets les noms
+        # On met les noms
         q1 = box_data["whiskers"][0].get_ydata()[1]
         q2 = box_data["medians"][0].get_ydata()[0]
         q3 = box_data["whiskers"][1].get_ydata()[1]
@@ -32,6 +33,7 @@ def afficher_boites_moustaches(data):
         data[i] = [x / 255 * 100 for x in data[i]]
 
         # Définir les étiquettes d'axe personnalisées en pourcentage
+        axs[i].yaxis.set_major_locator(ticker.FixedLocator(axs[i].get_yticks()))
         axs[i].set_yticklabels(['{:.0f}%'.format(x) for x in axs[i].get_yticks()])
 
     fig.suptitle("Moyenne des différences au nettoyage de l'expert", fontsize=16)
