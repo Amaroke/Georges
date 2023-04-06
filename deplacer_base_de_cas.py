@@ -48,7 +48,7 @@ target_files = ['barb_0001-4133_1919_num_5_1_T1_0032_0000.png',
                 ]
 
 # Définir le dossier de destination pour les fichiers trouvés
-dest_folder = "datas/BasesDeCas/Origine/TestsAutomatiques"
+dest_folder = "datas/BasesDeCas/TestsAutomatiques/Origine"
 
 
 def recursive_search(directory):
