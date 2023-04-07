@@ -150,6 +150,43 @@ def recupere_x_plus_proches_2x3(x_plus_proches, cursor, id_page, matrice_page, f
         tab.append(row)
     return tab
 
+def calcul_diff_matrice(m1, m2):
+    return (m1[0] - m2[0]), (m1[1] - m2[1]), (m1[2] - m2[2]), (m1[3] - m2[3]), (m1[4] - m2[4]), (m1[5] - m2[5])
+
+def produit_scalaire(m1, m2):
+    return m1[0] * m2[0] + m1[1] * m2[1] + m1[2] * m2[2] + m1[3] * m2[3] + m1[4] * m2[4] + m1[5] * m2[5]
+
+def distance_itgt_h(b, c, tgt):
+    # On calcule l'aire du triangle
+    A = calcul_aire_triangle(b, c, tgt)
+
+    # On calcule la distance de itgt à h
+    return 2 * A / calcul_somme_diff_matrice_dist2(b, c)
+
+def calcul_aire_triangle(b, c, tgt):
+    # On utilise la formule d'Héron
+
+    # On calcule d'abord les longueurs des 3 côtés du triangle
+    l = calcul_somme_diff_matrice_dist2(b, c)
+    m = calcul_somme_diff_matrice_dist2(c, tgt)
+    n = calcul_somme_diff_matrice_dist2(b, tgt)
+
+    # On calcule ensuite le demi périmètre
+    p = (l + m + n) / 2
+
+    # On calcule enfin l'aire du triangle
+    return math.sqrt(p * (p - l) * (p - m) * (p - n))
+
+def distance_b_h(b, tgt, distance_itgt_h):
+    # On calcule la distance de ib à h
+    return math.sqrt(calcul_somme_diff_matrice_dist2(b, tgt) ** 2 - distance_itgt_h ** 2)
+
+def calcul_barycentre(b, c, dist_b_h, dist_b_c):
+    return b + (c - b) * (dist_b_h / dist_b_c)
+
+def inverse(m) :
+    return (-m[0], -m[1], -m[2], -m[3], -m[4], -m[5])
+
 # Initialisation des variables constantes utilisée dans tout le fichier
 id_fascicule = input("Donnez moi l'id du fascicule à analyser : ")
 # Peut être remplacé par un input mais il faut modifier la bdd (stocker les valeurs correspondant
@@ -361,7 +398,6 @@ requete = """(select *
 cursor = setup_curseur(conn)
 
 x_plus_proches = 10
-tab_x_plus_proches = []
 stockage_triplets_v3 = dict()
 # On récupère les fichiers les plus proches calculés en approximation 1*1.
 for i in range(len(tab_fichiers_traites)):
@@ -399,7 +435,7 @@ print("Recherche par analogie 1*1 terminée, résultats écrits dans le fichier 
 ############################
 
 # ANA
-fichier_reponses = open("reponses5.txt", "w")
+fichier_reponses = open("reponses4.txt", "w")
 
 # Requete qui récupère les données de la BDD
 requete = """SELECT *
@@ -413,7 +449,6 @@ requete = """SELECT *
 cursor = setup_curseur(conn)
 
 x_plus_proches = 10
-tab_x_plus_proches = []
 stockage_triplets_v4 = dict()
 # On récupère les fichiers les plus proches calculés en approximation 2*3.
 for i in range(len(tab_fichiers_traites)):
@@ -447,7 +482,7 @@ for i in range(len(tab_fichiers_traites)):
     stockage_triplets_v4[tab_fichiers_traites[i]] = "(" + str(pn_analogie) + ", " + str(pb_analogie) + ", " + str(g_analogie) + ")"
 fichier_reponses.close()
 
-print("Recherche par analogie 2*3 terminée, résultats écrits dans le fichier 'reponses5.txt'.")
+print("Recherche par analogie 2*3 terminée, résultats écrits dans le fichier 'reponses4.txt'.")
 
 #########################################################
 # Interpolation donnant contrainte et valeur exacte 1*1 #
@@ -468,7 +503,7 @@ cursor = setup_curseur(conn)
 
 # On commence par la méthode par niveaux de gris simples.
 # Ouverture des fichiers dans lesquels on écrit la sortie du programme
-fichier_reponses = open("reponses4.txt", "w")
+fichier_reponses = open("reponses5.txt", "w")
 
 # On recherche le fichier le plus similaire à chaque page du fascicule cible et on écrit la réponse dans le fichier réponse.
 for i in range(len(tab_fichiers_traites)):
@@ -507,9 +542,97 @@ for i in range(len(tab_fichiers_traites)):
             tab_fichiers_traites[i] + " -> ng = 0 donc pas d'interpolation\n")
 
 fichier_reponses.close()
-print("Recherche par interpolation (1*1) terminée, résultats écrits dans le fichier 'reponses4.txt'.")
+print("Recherche par interpolation (1*1) terminée, résultats écrits dans le fichier 'reponses5.txt'.")
+
+
+#####################
+# Interpolation 2x3 #
+#####################
+
+requete = """select P.page_id, M.haut_gauche, M.haut_milieu, M.haut_droite, M.bas_gauche, M.bas_milieu, M.bas_droite, point_noir, point_blanc, gamma
+                from page as P, triplet as T, matrice as M
+                where P.page_id = T.page_id AND P.page_id = M.page_id AND P.fascicule_id != %s
+                order by SQRT(POW(M.haut_gauche - %s, 2) + POW(M.haut_milieu - %s, 2) + POW(M.haut_droite - %s, 2) + POW(M.bas_gauche - %s, 2) + POW(M.bas_milieu - %s, 2) + POW(M.bas_droite - %s, 2))
+                asc limit %s"""
+
+# On se replace au début de la BDD.
+cursor = setup_curseur(conn)
+
+# Ouverture des fichiers dans lesquels on écrit la sortie du programme
+fichier_reponses = open("reponses6.txt", "w")
+
+x = 20
+# cf. explication dans le rapport
+for i in range(len(tab_fichiers_traites)):
+    cursor.execute(requete, (id_fascicule, tab_moyennes_matrice[i][0], tab_moyennes_matrice[i][1], tab_moyennes_matrice[i][2], tab_moyennes_matrice[i][3], tab_moyennes_matrice[i][4], tab_moyennes_matrice[i][5], x))
+    
+    # On récupère les X pages les plus proches
+    tab_x_plus_proches = []
+    for row in cursor:
+        tab_x_plus_proches.append(row)
+
+    # On forme tous les couples possibles saufs ceux composés de 2 fois la même page entre les X pages les plus proches
+    tab_couples = []
+    for j in range(len(tab_x_plus_proches)):
+        for k in range(len(tab_x_plus_proches)):
+            if tab_x_plus_proches[j][0] != tab_x_plus_proches[k][0]:
+                tab_couples.append((tab_x_plus_proches[j], tab_x_plus_proches[k]))
+    
+    # On vérifie les couples valides en calculant les produits sclaires.
+    tab_couples_valides = []
+    for couple in tab_couples:
+        matrice_couple_b = (couple[0][1], couple[0][2], couple[0][3], couple[0][4], couple[0][5], couple[0][6])
+        matrice_couple_c = (couple[1][1], couple[1][2], couple[1][3], couple[1][4], couple[1][5], couple[1][6])
+        diff_couple = calcul_diff_matrice(matrice_couple_c, matrice_couple_b)
+        if produit_scalaire(diff_couple, calcul_diff_matrice(tab_moyennes_matrice[i], matrice_couple_b)) > 0 and produit_scalaire(inverse(diff_couple), calcul_diff_matrice(tab_moyennes_matrice[i], matrice_couple_c)) > 0:
+            tab_couples_valides.append(couple)
+
+    # On calcule les distances itgt à h pour chaque couple valide, on ne retiens que le couple avec la plus petite distance.
+    dist_min = sys.maxsize
+    couple_min = None
+    for couple in tab_couples_valides:
+        matrice_couple_b = (couple[0][1], couple[0][2], couple[0][3], couple[0][4], couple[0][5], couple[0][6])
+        matrice_couple_c = (couple[1][1], couple[1][2], couple[1][3], couple[1][4], couple[1][5], couple[1][6])
+        dist = distance_itgt_h(matrice_couple_b, matrice_couple_c, tab_moyennes_matrice[i])
+        if dist < dist_min:
+            dist_min = dist
+            couple_min = couple
+
+    # On calcule la distance ib à h pour le couple avec la plus petite distance.
+    matrice_couple_b = (couple_min[0][1], couple_min[0][2], couple_min[0][3], couple_min[0][4], couple_min[0][5], couple_min[0][6])
+    dist_b_h = distance_b_h(matrice_couple_b, tab_moyennes_matrice[i], dist_min)
+    dist_b_c = calcul_somme_diff_matrice_dist2(matrice_couple_b, (couple_min[1][1], couple_min[1][2], couple_min[1][3], couple_min[1][4], couple_min[1][5], couple_min[1][6]))
+
+    # On applique l'interpolation sur les triplets pour obtenir une contrainte et une valeur exacte du triplet.
+    # Contrainte
+    triplet_string_b = "(" + str(couple_min[0][7]) + ", " + \
+        str(couple_min[0][8]) + ", " + str(couple_min[0][9]) + ")"
+    pn_b = couple_min[0][7]
+    pb_b = couple_min[0][8]
+    gamma_b = couple_min[0][9]
+
+    triplet_string_c = "(" + str(couple_min[1][7]) + ", " + \
+        str(couple_min[1][8]) + ", " + str(couple_min[1][9]) + ")"
+    pn_c = couple_min[1][7]
+    pb_c = couple_min[1][8]
+    gamma_c = couple_min[1][9]
+
+    # Intervalle
+    pn_tgt = calcul_barycentre(pn_b, pn_c, dist_b_h, dist_b_c)
+    pb_tgt = calcul_barycentre(pb_b, pb_c, dist_b_h, dist_b_c)
+    gamma_tgt = calcul_barycentre(gamma_b, gamma_c, dist_b_h, dist_b_c)
+
+    triplet_string_tgt = "(" + str(pn_tgt) + ", " + \
+        str(pb_tgt) + ", " + str(gamma_tgt) + ")"
+    
+    fichier_reponses.write(tab_fichiers_traites[i] + " -> " + triplet_string_tgt +
+                    " -> [" + triplet_string_b + ", " + triplet_string_c + "]\n")
+
+fichier_reponses.close()
+print("Recherche par interpolation (2*3) terminée, résultats écrits dans le fichier 'reponses6.txt'.")
 
 conn.close()
+
 
 ###########################
 # Récupération de donéees #
