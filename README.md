@@ -7,7 +7,7 @@ Plusieurs prérequis sont nécessaires à l'utilisation de ce programme.
 ### Python, mySQL
 
 La version 3.11 de Python a été choisi pour ces performances et est nécessaire, vous pouvez l'installer sur n'importe quelle machine facilement en suivant ce [lien](https://www.python.org/downloads/release/python-3111/).<br>
-De même vous avez besoin d'un serveur de base de données, mySQL définit le choix de notre SGBD pour son côté open-source et ses performances sur de gros jeu de données, vous pouvez également l'installer facilement en suivant ce [lien](https://dev.mysql.com/downloads/mysql/). 
+De même, vous avez besoin d'un serveur de base de données, mySQL définit le choix de notre SGBD pour son côté open-source et ses performances sur de gros jeu de données, vous pouvez également l'installer facilement en suivant ce [lien](https://dev.mysql.com/downloads/mysql/). 
 
 ### Dépendances nécessaires à Python
 
@@ -21,6 +21,7 @@ Il faudra donc installer les dépendances suivantes simplement en exécutant ces
 * pip install numpy
 * pip install tkinter
 * pip install opencv-python
+* pip install skimage
 
 ### Structuration des données à traiter et des fichiers de configuration
 
@@ -33,7 +34,7 @@ password : VOTRE MOT DE PASSE BDD
 database : Georges
 ```
 Il faut également ajouter à la racine du projet le dossier `datas`.
-Nous travaillons avec l'architecture suivante pour le dossier `datas` :
+Nous travaillons avec l'architecture suivante pour le dossier `datas`, il est important de respecter cette structure pour que le programme puisse fonctionner correctement :
 ```
 ├───BasesDeCas
 │   ├───TestsAutomatiques
@@ -43,22 +44,16 @@ Nous travaillons avec l'architecture suivante pour le dossier `datas` :
 │   │   ├───Extrapolation1x1
 │   │   ├───Extrapolation2x3
 │   │   ├───Interpolation1x1
+│   │   ├───Interpolation2x3
 │   │   └───Origine
 │   └───TestsManuels
-│       ├───Propre
-│       │   ├───Approximation1x1
-│       │   ├───Approximation2x3
-│       │   ├───Extrapolation1x1
-│       │   ├───Extrapolation2x3
-│       │   ├───Interpolation1x1
-│       │   └───Origine
-│       └───Sale
-│           ├───Approximation1x1
-│           ├───Approximation2x3
-│           ├───Extrapolation1x1
-│           ├───Extrapolation2x3
-│           ├───Interpolation1x1
-│           └───Origine
+│       ├───Approximation1x1
+│       ├───Approximation2x3
+│       ├───Extrapolation1x1
+│       ├───Extrapolation2x3
+│       ├───Interpolation1x1
+│       ├───Interpolation2x3
+│       └───Origine
 ├───Fascicules
 │   ├───barb_0001-4133_1919_num_5_1
 │   │   ├───Fantomes_Couvertures_Figures
@@ -290,108 +285,6 @@ Nous travaillons avec l'architecture suivante pour le dossier `datas` :
 │       │   ├───Bitmap
 │       │   └───GreyScale
 │       └───Resultat_OCR
-├───FasciculesSupplementaires
-│   ├───images
-│   │   ├───asgn_0767-7367_1980_num_100_1
-│   │   │   ├───Fantomes_Couvertures_Figures
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───Couleur
-│   │   │   ├───Pages_volume
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───GreyScale
-│   │   │   └───Resultat_OCR
-│   │   ├───asgn_0767-7367_1980_num_100_2
-│   │   │   ├───Fantomes_Couvertures_Figures
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───Couleur
-│   │   │   ├───Pages_volume
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───GreyScale
-│   │   │   └───Resultat_OCR
-│   │   ├───asgn_0767-7367_1980_num_100_3
-│   │   │   ├───Fantomes_Couvertures_Figures
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───Couleur
-│   │   │   ├───Pages_volume
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───GreyScale
-│   │   │   └───Resultat_OCR
-│   │   ├───asgn_0767-7367_1980_num_100_4
-│   │   │   ├───Fantomes_Couvertures_Figures
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───Couleur
-│   │   │   ├───Pages_volume
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───GreyScale
-│   │   │   └───Resultat_OCR
-│   │   ├───asgn_0767-7367_1981_num_101_1
-│   │   │   ├───Fantomes_Couvertures_Figures
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───Couleur
-│   │   │   ├───Pages_volume
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───GreyScale
-│   │   │   └───Resultat_OCR
-│   │   ├───asgn_0767-7367_1981_num_101_2
-│   │   │   ├───Fantomes_Couvertures_Figures
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───Couleur
-│   │   │   ├───Pages_volume
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───GreyScale
-│   │   │   └───Resultat_OCR
-│   │   ├───binet_0750-7496_1900_num_1_1
-│   │   │   ├───Fantomes_Couvertures_Figures
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───Couleur
-│   │   │   ├───Pages_volume
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───GreyScale
-│   │   │   └───Resultat_OCR
-│   │   ├───binet_0750-750X_1918_num_18_120
-│   │   │   ├───Fantomes_Couvertures_Figures
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───Couleur
-│   │   │   ├───Pages_volume
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───GreyScale
-│   │   │   └───Resultat_OCR
-│   │   ├───femou_0180-4162_1978_num_6_1
-│   │   │   ├───Fantomes_Couvertures_Figures
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───Couleur
-│   │   │   ├───Pages_volume
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───GreyScale
-│   │   │   └───Resultat_OCR
-│   │   ├───lesb_0754-944X_1988_num_65_1
-│   │   │   ├───Fantomes_Couvertures_Figures
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───Couleur
-│   │   │   ├───Pages_volume
-│   │   │   │   ├───Bitmap
-│   │   │   │   └───GreyScale
-│   │   │   └───Resultat_OCR
-│   │   └───nbeur_0000-0007_1996_num_0_1
-│   │       ├───Fantomes_Couvertures_Figures
-│   │       │   ├───Bitmap
-│   │       │   └───Couleur
-│   │       ├───Pages_volume
-│   │       │   ├───Bitmap
-│   │       │   └───GreyScale
-│   │       └───Resultat_OCR
-│   └───ocr
-│       ├───asgn_0767-7367_1980_num_100_1
-│       ├───asgn_0767-7367_1980_num_100_2
-│       ├───asgn_0767-7367_1980_num_100_3
-│       ├───asgn_0767-7367_1980_num_100_4
-│       ├───asgn_0767-7367_1981_num_101_1
-│       ├───asgn_0767-7367_1981_num_101_2
-│       ├───binet_0750-7496_1900_num_1_1
-│       ├───binet_0750-750X_1918_num_18_120
-│       ├───femou_0180-4162_1978_num_6_1
-│       ├───lesb_0754-944X_1988_num_65_1
-│       └───nbeur_0000-0007_1996_num_0_1
 └───OCR
     ├───barb_0001-4133_1919_num_5_1
     ├───barb_0001-4133_1920_num_6_1
