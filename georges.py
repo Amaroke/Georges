@@ -312,6 +312,7 @@ cursor = setup_curseur(conn)
 # On commence par la méthode par niveaux de gris simples.
 # Ouverture des fichiers dans lesquels on écrit la sortie du programme
 fichier_reponses = open("reponses.txt", "w")
+fichier_triplets = open("approximation1x1.txt", "w")
 
 stockage_triplets = dict()
 stockage_reponse_score = dict()
@@ -323,6 +324,8 @@ for i in range(len(tab_fichiers_traites)):
     row = cursor.fetchone()
     triplet_string = "(" + str(row[2]) + ", " + \
                      str(row[3]) + ", " + str(row[4]) + ")"
+    fichier_triplets.write("[\"" + tab_fichiers_traites[i] + "\"" + ", " + str(row[2]) + ", " + \
+                           str(row[3]) + ", " + str(row[4]) + "],\n")
     fichier_reponses.write(
         tab_fichiers_traites[i] + " -> " + triplet_string + "\n")
     stockage_triplets[tab_fichiers_traites[i]] = triplet_string
@@ -338,6 +341,7 @@ print("Recherche par niveau de gris basique terminée, résultats écrits dans l
 # MAT
 # On passe à la méthode par matrice
 fichier_reponses_2 = open("reponses2.txt", "w")
+fichier_triplets_2 = open("approximation2x3.txt", "w")
 
 requete = """select P.page_id, point_noir, point_blanc, gamma, haut_gauche, haut_milieu, haut_droite, bas_gauche, bas_milieu, bas_droite, fascicule_id 
                 from page as P, matrice as M, triplet as T 
@@ -382,6 +386,7 @@ stockage_triplets_v2 = dict()
 for i in range(len(tab_fichiers_traites)):
     fichier_reponses_2.write(
         tab_fichiers_traites[i] + " -> " + matrice_triplet[i] + "\n")
+    fichier_triplets_2.write("[\"" + tab_fichiers_traites[i] + "\"" + ", " + matrice_triplet[i][1:-1] + "],\n")
     stockage_triplets_v2[tab_fichiers_traites[i]] = matrice_triplet[i]
 
 fichier_reponses_2.close()
@@ -393,6 +398,7 @@ print("Recherche par matrice 2*3 terminée, résultats écrits dans le fichier '
 
 # ANA
 fichier_reponses_3 = open("reponses3.txt", "w")
+fichier_triplets_3 = open("extrapolation1x1.txt", "w")
 
 # On prépare les requêtes qui récupèrent les données de la BDD
 # TODO : Remplacer par une requête plus efficace, cf requete ANA 2*3.
@@ -445,6 +451,9 @@ for i in range(len(tab_fichiers_traites)):
         int(tuple_min[5])) + ", " + str(float(tuple_min[6])) + " | page c choisie : " + x[0] + "\n")
     stockage_triplets_v3[tab_fichiers_traites[i]] = "(" + str(pn_analogie) + ", " + str(pb_analogie) + ", " + str(
         g_analogie) + ")"
+    fichier_triplets_3.write(
+        "[\"" + tab_fichiers_traites[i] + "\"" + ", " + str(pn_analogie) + ", " + str(pb_analogie) + ", {:.2f}],\n".format(g_analogie))
+
 fichier_reponses_3.close()
 
 print("Recherche par analogie 1*1 terminée, résultats écrits dans le fichier 'reponses3.txt'.")
@@ -455,6 +464,7 @@ print("Recherche par analogie 1*1 terminée, résultats écrits dans le fichier 
 
 # ANA
 fichier_reponses = open("reponses4.txt", "w")
+fichier_triplets_4 = open("extrapolation2x3.txt", "w")
 
 # Requete qui récupère les données de la BDD
 requete = """SELECT *
@@ -504,6 +514,8 @@ for i in range(len(tab_fichiers_traites)):
         int(tuple_min[5])) + ", " + str(float(tuple_min[6])) + "\n")
     stockage_triplets_v4[tab_fichiers_traites[i]] = "(" + str(pn_analogie) + ", " + str(pb_analogie) + ", " + str(
         g_analogie) + ")"
+    fichier_triplets_4.write(
+        "[\"" + tab_fichiers_traites[i] + "\"" + ", " + str(pn_analogie) + ", " + str(pb_analogie) + ", {:.2f}],\n".format(g_analogie))
 fichier_reponses.close()
 
 print("Recherche par analogie 2*3 terminée, résultats écrits dans le fichier 'reponses4.txt'.")
@@ -528,6 +540,7 @@ cursor = setup_curseur(conn)
 # On commence par la méthode par niveaux de gris simples.
 # Ouverture des fichiers dans lesquels on écrit la sortie du programme
 fichier_reponses = open("reponses5.txt", "w")
+fichier_triplets_5 = open("interpolation1x1.txt", "w")
 
 # On recherche le fichier le plus similaire à chaque page du fascicule cible et on écrit la réponse dans le fichier réponse.
 for i in range(len(tab_fichiers_traites)):
@@ -561,12 +574,14 @@ for i in range(len(tab_fichiers_traites)):
 
         fichier_reponses.write(tab_fichiers_traites[i] + " -> " + triplet_string_3 +
                                " -> [" + triplet_string_1 + ", " + triplet_string_2 + "]\n")
+        fichier_triplets_5.write(
+            "[\"" + tab_fichiers_traites[i] + "\"" + ", " + str(pn_3) + ", " + str(pb_3) + ", {:.2f}],\n".format(gamma_3))
     else:
         fichier_reponses.write(
             tab_fichiers_traites[i] + " -> ng = 0 donc pas d'interpolation\n")
 
 fichier_reponses.close()
-print("Recherche par interpolation (1*1) terminée, résultats écrits dans le fichier 'reponses5.txt'.")
+print("Recherche par interpolation 1*1 terminée, résultats écrits dans le fichier 'reponses5.txt'.")
 
 #####################
 # Interpolation 2x3 #
@@ -583,6 +598,7 @@ cursor = setup_curseur(conn)
 
 # Ouverture des fichiers dans lesquels on écrit la sortie du programme
 fichier_reponses = open("reponses6.txt", "w")
+fichier_triplets_6 = open("interpolation2x3.txt", "w")
 
 x = 20
 # cf. explication dans le rapport
@@ -656,9 +672,11 @@ for i in range(len(tab_fichiers_traites)):
 
     fichier_reponses.write(tab_fichiers_traites[i] + " -> " + triplet_string_tgt +
                            " -> [" + triplet_string_b + ", " + triplet_string_c + "]\n")
+    fichier_triplets_6.write(
+        "[\"" + tab_fichiers_traites[i] + "\"" + ", " + str(int(pn_tgt)) + ", " + str(int(pb_tgt)) + ", {:.2f}],\n".format(gamma_tgt))
 
 fichier_reponses.close()
-print("Recherche par interpolation (2*3) terminée, résultats écrits dans le fichier 'reponses6.txt'.")
+print("Recherche par interpolation 2*3 terminée, résultats écrits dans le fichier 'reponses6.txt'.")
 
 conn.close()
 
