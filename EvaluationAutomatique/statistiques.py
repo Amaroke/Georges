@@ -1,18 +1,17 @@
-import matplotlib.pyplot as plt
-import matplotlib.ticker as mtick
+import numpy as np
 
-def generer_diagrammes_moustache(data, csv_files):
+def generer_statistiques(data, csv_files):
     for i in range(len(data)):
-        fig, ax = plt.subplots()
-        ax.boxplot(data[i])
-        ax.set_xticks([])
-        ax.invert_yaxis()  # On inverse l'axe y
-        ax.set_ylim(20, 0)  # On limite l'axe y entre 0 et 20
-        ax.grid(axis='y', linestyle='-', alpha=0.7)
-        ax.yaxis.set_major_formatter(mtick.FormatStrFormatter('%.0f%%'))
-        plt.savefig(csv_files[i].replace(".csv", ".png"))
-        plt.close(fig)
+        mediane = np.median(data[i])
+        ecart_type = np.std(data[i])
+        valeur_min = np.min(data[i])
+        valeur_max = np.max(data[i])
 
+        with open(csv_files[i].replace(".csv", ".txt"), "w") as f:
+            f.write(f"Mediane : {mediane:.2f}\n")
+            f.write(f"Ecart type : {ecart_type:.2f}\n")
+            f.write(f"Valeur minimale : {valeur_min:.2f}\n")
+            f.write(f"Valeur maximale : {valeur_max:.2f}\n")
 
 csv_files = ["approximation1x1.csv",
              "approximation2x3.csv",
@@ -30,5 +29,4 @@ for i, file in enumerate(csv_files):
             split = line.split(",")
             data[i].append(float(split[2]))
 
-generer_diagrammes_moustache(data, csv_files)
-
+generer_statistiques(data, csv_files)

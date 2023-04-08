@@ -1,0 +1,4 @@
+Mediane : 0.00
+Ecart type : 0.00
+Valeur minimale : 0.00
+Valeur maximale : 0.00

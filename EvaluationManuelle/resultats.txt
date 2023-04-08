@@ -1,0 +1,42 @@
+Méthode approximation1x1:
+Médiane: 2.00
+Écart-type: 0.00
+Valeur minimale: 2.00
+Valeur maximale: 2.00
+
+Méthode approximation2x3:
+Médiane: 2.00
+Écart-type: 0.00
+Valeur minimale: 2.00
+Valeur maximale: 2.00
+
+Méthode extrapolation1x1:
+Médiane: 2.00
+Écart-type: 0.00
+Valeur minimale: 2.00
+Valeur maximale: 2.00
+
+Méthode extrapolation2x3:
+Médiane: 2.00
+Écart-type: 0.00
+Valeur minimale: 2.00
+Valeur maximale: 2.00
+
+Méthode interpolation1x1:
+Médiane: 2.00
+Écart-type: 0.00
+Valeur minimale: 2.00
+Valeur maximale: 2.00
+
+Méthode interpolation2x3:
+Médiane: 2.00
+Écart-type: 0.00
+Valeur minimale: 2.00
+Valeur maximale: 2.00
+
+Méthode persee:
+Médiane: 2.00
+Écart-type: 0.00
+Valeur minimale: 2.00
+Valeur maximale: 2.00
+
