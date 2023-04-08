@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def generer_statistiques(data, csv_files):
     for i in range(len(data)):
         mediane = np.median(data[i])
@@ -12,6 +13,7 @@ def generer_statistiques(data, csv_files):
             f.write(f"Ecart type : {ecart_type:.2f}\n")
             f.write(f"Valeur minimale : {valeur_min:.2f}\n")
             f.write(f"Valeur maximale : {valeur_max:.2f}\n")
+
 
 csv_files = ["approximation1x1.csv",
              "approximation2x3.csv",

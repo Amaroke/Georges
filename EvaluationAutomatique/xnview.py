@@ -428,6 +428,7 @@ tripletsInterpolation2x3Manuel = [
     ["rnord_0035-2624_1928_num_14_53_T1_0023_0000", 0, 255, 1.0]
 ]
 
+
 def lookup(pixel, params, delta, invGamma):
     if pixel < params["minLevel"]:
         return 0
@@ -487,17 +488,20 @@ def appliquer_triplets_base_manuelle(fichier, noir, blanc, gamma, methode):
     # Sauvegarder l'image modifiée
     image.save("../datas/BasesDeCas/TestsManuels/" + methode + "/" + fichier + ".png")
 
+
 # Définir une fonction pour générer des images en appliquant des triplets de base automatique
 def generer_images_automatique(triplets, approximation):
     for image in triplets:
         fichier, noir, blanc, gamma = image[:4]
         appliquer_triplets_base_automatique(fichier, noir, blanc, gamma, approximation)
 
+
 # Définir une fonction pour générer des images en appliquant des triplets de base manuelle
 def generer_images_manuelle(triplets, approximation):
     for image in triplets:
         fichier, noir, blanc, gamma = image[:4]
         appliquer_triplets_base_manuelle(fichier, noir, blanc, gamma, approximation)
+
 
 debut = time.time()
 

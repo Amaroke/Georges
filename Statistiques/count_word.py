@@ -46,7 +46,7 @@ variance = sum(de[2][i] * (i - de[1]) ** 2 for i in range(n)) / sum(de[2])
 standard_deviation = np.sqrt(variance)
 
 print("La moyenne de \"de\" par page est", str(de[1]), " et l'écart type est de", str(standard_deviation))
-# La moyenne de "de" par page est 16.19943992298941  et l'écart type est de 11.532348134972942
+# La moyenne de "de" par page est 16.19943992298941 et l'écart type est de 11.532348134972942
 
 de = de[0]
 le = count_word_in_OCR("le")[0]

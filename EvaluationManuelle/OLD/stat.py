@@ -1,7 +1,8 @@
 import csv
 import matplotlib.pyplot as plt
 
-def histogramme_manu(nom_csv) :
+
+def histogramme_manu(nom_csv):
     data = {"approximation1x1": [0, 0, 0, 0, 0], "approximation2x3": [0, 0, 0, 0, 0],
             "extrapolation1x1": [0, 0, 0, 0, 0], "extrapolation2x3": [0, 0, 0, 0, 0],
             "interpolation1x1": [0, 0, 0, 0, 0]}
@@ -9,7 +10,7 @@ def histogramme_manu(nom_csv) :
     with open(nom_csv + ".csv", newline='') as f:
         reader = csv.reader(f, delimiter=',')
         for row in reader:
-            row = [elem.strip() for elem in row ]
+            row = [elem.strip() for elem in row]
             print(row)
             if row[1] == '1':
                 data[row[0].split("_")[-1]][0] += 1
@@ -28,7 +29,7 @@ def histogramme_manu(nom_csv) :
 
     colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
 
-    plt.figure(figsize=(10,6))
+    plt.figure(figsize=(10, 6))
 
     for i, motor in enumerate(data.keys()):
         plt.bar([x + (i * bar_width) for x in index], data[motor], bar_width,

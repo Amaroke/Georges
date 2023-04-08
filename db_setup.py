@@ -156,12 +156,16 @@ def score_global_matrice(tab_score_mots_matrice):
 
     return mean(somme_hg), mean(somme_hm), mean(somme_hd), mean(somme_bg), mean(somme_bm), mean(somme_bd)
 
+
 def calcul_somme_diff_matrice_dist1(m1, m2):
     return abs(m1[0] - m2[0]) + abs(m1[1] - m2[1]) + abs(m1[2] - m2[2]) + abs(m1[3] - m2[3]) + abs(m1[4] - m2[4]) + abs(
         m1[5] - m2[5])
 
+
 def calcul_somme_diff_matrice_dist2(m1, m2):
-    return math.sqrt((m1[0] - m2[0]) ** 2 + (m1[1] - m2[1]) ** 2 + (m1[2] - m2[2]) ** 2 + (m1[3] - m2[3]) ** 2 + (m1[4] - m2[4]) ** 2 + (m1[5] - m2[5]) ** 2)
+    return math.sqrt((m1[0] - m2[0]) ** 2 + (m1[1] - m2[1]) ** 2 + (m1[2] - m2[2]) ** 2 + (m1[3] - m2[3]) ** 2 + (
+            m1[4] - m2[4]) ** 2 + (m1[5] - m2[5]) ** 2)
+
 
 def remplirBDD(conn):
     xlsx_file = Path('datas/Triplets.xlsx')
@@ -277,11 +281,14 @@ def remplirBDDAnalogie(conn):
             bas_droite2 = resultat4[7]
             try:
                 # On calcule la difference entre les donnees des deux pages.
-                reference = (page_id, page_id2, niveau_gris - niveau_gris2, point_noir - point_noir2,
-                             point_blanc - point_blanc2, gamma - gamma2, calcul_somme_diff_matrice_dist2(
-                                (float(haut_gauche), float(haut_milieu), float(haut_droite), float(bas_gauche), float(bas_milieu), float(bas_droite)),
-                                (float(haut_gauche2), float(haut_milieu2), float(haut_droite2), float(bas_gauche2), float(bas_milieu2), float(bas_droite2))
-                            ))
+                reference = (
+                    page_id, page_id2, niveau_gris - niveau_gris2, point_noir - point_noir2, point_blanc - point_blanc2,
+                    gamma - gamma2, calcul_somme_diff_matrice_dist2((float(haut_gauche), float(haut_milieu),
+                                                                     float(haut_droite), float(bas_gauche),
+                                                                     float(bas_milieu), float(bas_droite)), (
+                                                                        float(haut_gauche2), float(haut_milieu2),
+                                                                        float(haut_droite2), float(bas_gauche2),
+                                                                        float(bas_milieu2), float(bas_droite2))))
                 # On insère cette différence dans la table analogie.
                 cursor.execute(
                     """INSERT INTO analogie (page1, page2, difference_niveau_gris, difference_point_noir, 
