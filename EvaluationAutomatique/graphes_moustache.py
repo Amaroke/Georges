@@ -3,11 +3,13 @@ import matplotlib.ticker as mtick
 
 def generer_diagrammes_moustache(data, csv_files):
     for i in range(len(data)):
-        fig, ax = plt.subplots()
-        ax.boxplot(data[i])
+        fig, ax = plt.subplots(figsize=(2, 3))
+        fig.subplots_adjust(left=0.3, right=0.8)
+        ax.boxplot(data[i], widths=0.3)  # <--- Définir la largeur des boîtes
         ax.set_xticks([])
-        ax.invert_yaxis()  # On inverse l'axe y
-        ax.set_ylim(20, 0)  # On limite l'axe y entre 0 et 20
+        ax.invert_yaxis()
+        ax.set_ylim(20, 0)
+        ax.set_xlim(0.75, 1.25)  # <--- Définir les limites des axes x
         ax.grid(axis='y', linestyle='-', alpha=0.7)
         ax.yaxis.set_major_formatter(mtick.FormatStrFormatter('%.0f%%'))
         plt.savefig(csv_files[i].replace(".csv", ".png"))
