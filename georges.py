@@ -5,6 +5,7 @@ import sys
 import xml.etree.ElementTree as ET
 import zipfile
 from statistics import mean
+import time
 
 import mysql.connector
 from PIL import Image
@@ -15,7 +16,7 @@ def connexionBDD():
     try:
         # Création de l'objet de configuration pour lire le fichier config.ini.
         config = configparser.RawConfigParser()
-        config.read('config.ini')
+        config.read('./DB/config.ini')
 
         # Connexion à la base de données en utilisant les informations de connexion
         # lues dans le fichier config.ini.
@@ -35,7 +36,7 @@ def connexionBDD():
 def setup_curseur(conn):
     cursor = conn.cursor()
     config = configparser.ConfigParser()
-    config.read('config.ini')
+    config.read('./DB/config.ini')
     db_name = config.get('settings', 'database')
     cursor.execute("USE " + db_name)
     return cursor
@@ -199,6 +200,15 @@ def calcul_barycentre(b, c, dist_b_h, dist_b_c):
 def inverse(m):
     return (-m[0], -m[1], -m[2], -m[3], -m[4], -m[5])
 
+def demarrer_timer():
+    return time.time()
+
+def arreter_timer(timer):
+    return time.time() - timer
+
+timer_total = demarrer_timer()
+
+timer_prep = demarrer_timer()
 
 # Initialisation des variables constantes utilisée dans tout le fichier
 id_fascicule = input("Donnez moi l'id du fascicule à analyser : ")
@@ -207,7 +217,7 @@ mot_choisi = "de"
 # à cet input)
 
 chemin = os.path.join(os.getcwd(), "datas", "Fascicules",
-                      id_fascicule, "Pages_volume", "GreyScale")
+                      id_fascicule, "Pages_volume", "GreyScales")
 chemin_archive = os.path.join(os.getcwd(), "datas", "OCR", id_fascicule)
 
 # Initialisations des structures de données et variables nécessaires au stockage de données sur les images.
@@ -288,9 +298,13 @@ else:
           "l'image !")
     exit(4)
 
+print("Temps d'exécution préparation : %s secondes ---" % arreter_timer(timer_prep))
+
 #####################################
 # Méthode par niveau de gris unique #
 #####################################
+
+timer_approx1x1 = demarrer_timer()
 
 # NGU & ANA
 # On regarde les correspondance dans la bdd (création de la requête)
@@ -334,9 +348,14 @@ for i in range(len(tab_fichiers_traites)):
 fichier_reponses.close()
 print("Recherche par niveau de gris basique terminée, résultats écrits dans le fichier 'reponses.txt'.")
 
+print("Temps d'exécution approx 1x1 : %s secondes ---" % arreter_timer(timer_approx1x1))
+
+
 #######################
 # Méthode par matrice #
 #######################
+
+timer_approx2x3 = demarrer_timer()
 
 # MAT
 # On passe à la méthode par matrice
@@ -392,9 +411,13 @@ for i in range(len(tab_fichiers_traites)):
 fichier_reponses_2.close()
 print("Recherche par matrice 2*3 terminée, résultats écrits dans le fichier 'reponses2.txt'.")
 
+print("Temps d'exécution approx 2x3 : %s secondes ---" % arreter_timer(timer_approx2x3))
+
 ########################
 # Méthode par analogie 1*1 #
 ########################
+
+timer_extra1x1 = demarrer_timer()
 
 # ANA
 fichier_reponses_3 = open("reponses3.txt", "w")
@@ -458,9 +481,13 @@ fichier_reponses_3.close()
 
 print("Recherche par analogie 1*1 terminée, résultats écrits dans le fichier 'reponses3.txt'.")
 
+print("Temps d'exécution extra 1x1 : %s secondes ---" % arreter_timer(timer_extra1x1))
+
 ############################
 # Méthode par analogie 2*3 #
 ############################
+
+timer_extra2x3 = demarrer_timer()
 
 # ANA
 fichier_reponses = open("reponses4.txt", "w")
@@ -520,9 +547,13 @@ fichier_reponses.close()
 
 print("Recherche par analogie 2*3 terminée, résultats écrits dans le fichier 'reponses4.txt'.")
 
+print("Temps d'exécution extra 2x3 : %s secondes ---" % arreter_timer(timer_extra2x3))
+
 #########################################################
 # Interpolation donnant contrainte et valeur exacte 1*1 #
 #########################################################
+
+timer_inter1x1 = demarrer_timer()
 
 requete = """(select P.page_id, niveau_gris, point_noir, point_blanc, gamma 
                 from page as P, triplet as T 
@@ -583,9 +614,13 @@ for i in range(len(tab_fichiers_traites)):
 fichier_reponses.close()
 print("Recherche par interpolation 1*1 terminée, résultats écrits dans le fichier 'reponses5.txt'.")
 
+print("Temps d'exécution interpolation 1x1 : %s secondes ---" % arreter_timer(timer_inter1x1))
+
 #####################
 # Interpolation 2x3 #
 #####################
+
+timer_inter2x3 = demarrer_timer()
 
 requete = """select P.page_id, M.haut_gauche, M.haut_milieu, M.haut_droite, M.bas_gauche, M.bas_milieu, M.bas_droite, point_noir, point_blanc, gamma
                 from page as P, triplet as T, matrice as M
@@ -681,6 +716,10 @@ fichier_reponses.close()
 print("Recherche par interpolation 2*3 terminée, résultats écrits dans le fichier 'reponses6.txt'.")
 
 conn.close()
+
+print("Temps d'exécution interpolation 2x3 : %s secondes ---" % arreter_timer(timer_inter2x3))
+
+print("Temps d'exécution : %s secondes ---" % arreter_timer(timer_total))
 
 ###########################
 # Récupération de donéees #
