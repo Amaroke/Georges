@@ -29,27 +29,27 @@ with open('astier.csv') as csvfile:
         elif row[0].split("_")[-1] == 'approximation2x3':
             approximation2x3_data.append(float(row[1]))
             if row[2] == "Meilleure":
-                bests[0] += 1
+                bests[1] += 1
         elif row[0].split("_")[-1] == 'extrapolation1x1':
             extrapolation1x1_data.append(float(row[1]))
             if row[2] == "Meilleure":
-                bests[0] += 1
+                bests[2] += 1
         elif row[0].split("_")[-1] == 'extrapolation2x3':
             extrapolation2x3_data.append(float(row[1]))
             if row[2] == "Meilleure":
-                bests[0] += 1
+                bests[3] += 1
         elif row[0].split("_")[-1] == 'interpolation1x1':
             interpolation1x1_data.append(float(row[1]))
             if row[2] == "Meilleure":
-                bests[0] += 1
+                bests[4] += 1
         elif row[0].split("_")[-1] == 'interpolation2x3':
             interpolation2x3_data.append(float(row[1]))
             if row[2] == "Meilleure":
-                bests[0] += 1
+                bests[5] += 1
         elif row[0].split("_")[-1] == 'persee':
             persee_data.append(float(row[1]))
             if row[2] == "Meilleure":
-                bests[0] += 1
+                bests[6] += 1
 
 # Liste des données
 data = [approximation1x1_data, approximation2x3_data, extrapolation1x1_data,

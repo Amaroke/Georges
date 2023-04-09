@@ -1,49 +1,49 @@
 Méthode approximation1x1:
-Moyenne: 2.00
-Écart-type: 0.00
-Score minimale: 2.00
-Score maximale: 2.00
-Nombre de "best": 19
+Moyenne: 2.83
+Écart-type: 0.99
+Score minimale: 1.00
+Score maximale: 4.00
+Nombre de "best": 3
 
 Méthode approximation2x3:
-Moyenne: 2.00
-Écart-type: 0.00
-Score minimale: 2.00
-Score maximale: 2.00
-Nombre de "best": 0
+Moyenne: 2.84
+Écart-type: 1.01
+Score minimale: 1.00
+Score maximale: 4.00
+Nombre de "best": 3
 
 Méthode extrapolation1x1:
-Moyenne: 2.00
-Écart-type: 0.00
-Score minimale: 2.00
-Score maximale: 2.00
-Nombre de "best": 0
+Moyenne: 2.58
+Écart-type: 0.96
+Score minimale: 1.00
+Score maximale: 4.00
+Nombre de "best": 1
 
 Méthode extrapolation2x3:
-Moyenne: 2.00
-Écart-type: 0.00
-Score minimale: 2.00
-Score maximale: 2.00
-Nombre de "best": 0
+Moyenne: 2.42
+Écart-type: 1.12
+Score minimale: 1.00
+Score maximale: 4.00
+Nombre de "best": 2
 
 Méthode interpolation1x1:
-Moyenne: 2.00
-Écart-type: 0.00
-Score minimale: 2.00
-Score maximale: 2.00
-Nombre de "best": 0
+Moyenne: 2.95
+Écart-type: 0.85
+Score minimale: 1.00
+Score maximale: 4.00
+Nombre de "best": 2
 
 Méthode interpolation2x3:
-Moyenne: 2.00
-Écart-type: 0.00
-Score minimale: 2.00
-Score maximale: 2.00
-Nombre de "best": 0
+Moyenne: 3.21
+Écart-type: 0.98
+Score minimale: 1.00
+Score maximale: 4.00
+Nombre de "best": 5
 
 Méthode persee:
-Moyenne: 2.00
-Écart-type: 0.00
-Score minimale: 2.00
-Score maximale: 2.00
-Nombre de "best": 0
+Moyenne: 2.63
+Écart-type: 1.07
+Score minimale: 1.00
+Score maximale: 4.00
+Nombre de "best": 3
 
