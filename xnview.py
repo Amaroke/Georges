@@ -525,7 +525,7 @@ def generer_images_manuelle(triplets, approximation):
 
 debut = time.time()
 
-"""
+
 # Générer les images en appliquant les triplets
 generer_images_automatique(tripletsExpert, "Expert")
 generer_images_automatique(tripletsApproximation1x1, "Approximation1x1")
@@ -534,7 +534,7 @@ generer_images_automatique(tripletsExtrapolation1x1, "Extrapolation1x1")
 generer_images_automatique(tripletsExtrapolation2x3, "Extrapolation2x3")
 generer_images_automatique(tripletsInterpolation1x1, "Interpolation1x1")
 generer_images_automatique(tripletsInterpolation2x3, "Interpolation2x3")
-"""
+
 # Générer les images en appliquant les triplets manuels
 generer_images_manuelle(tripletsApproximation1x1Manuel, "Approximation1x1")
 generer_images_manuelle(tripletsApproximation2x3Manuel, "Approximation2x3")
