@@ -5,9 +5,9 @@
 ../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/barb_0001-4133_1941_num_27_1_T1_0032_0000.png, 0.8606625109662326, 2.9970615322606267, 0, 19
 ../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/barb_0001-4133_1963_num_49_1_T1_0020_0000.png, 0.259827514818689, 1.2486680546187763, 0, 10
 ../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/barb_0001-4141_1907_num_9_1_T1_0010_0000.png, 2.3460727787736717, 6.936729393399359, 0, 36
-../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/barb_0001-4141_1909_num_11_1_T1_0011_0000.png, 0.550173800436205, 2.490643471949092, 0, 22
-../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/barb_0001-4141_1910_num_12_1_T1_0034_0000.png, 1.10251778386544, 3.7071833281232425, 0, 26
-../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/barb_0001-4141_1919_num_5_1_T1_0002_0000.png, 1.7038165634739595, 6.178563143364287, 0, 37
+../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/barb_0001-4141_1909_num_11_1_T1_0011_0000.png, 0.4262140471646674, 2.0525098604663916, 0, 19
+../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/barb_0001-4141_1910_num_12_1_T1_0034_0000.png, 1.2590448288690477, 4.274373268277566, 0, 27
+../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/barb_0001-4141_1919_num_5_1_T1_0002_0000.png, 2.439771075125962, 7.447880376670825, 0, 50
 ../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/rnord_0035-2624_1925_num_11_43_T1_0171_0000.png, 0.344528286589445, 1.3531752920388471, 0, 8
 ../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/rnord_0035-2624_1927_num_13_51_T1_0206_0000.png, 1.1394595616844363, 3.419764843436395, 0, 16
 ../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/rnord_0035-2624_1928_num_14_53_T1_0059_0000.png, 2.4124727648996567, 6.5945936922109585, 0, 39
@@ -21,8 +21,8 @@
 ../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/rnord_0035-2624_1967_num_49_192_T1_0005_0000.png, 2.71095531737875, 5.992206305775786, 0, 26
 ../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/rnord_0035-2624_1970_num_52_204_T1_0007_0000.png, 2.31776934700671, 5.704153923676176, 0, 26
 ../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/rnord_0035-2624_1976_num_58_228_T1_0042_0000.png, 0.49709673668824894, 1.3994581980887537, 0, 7
-../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/rnord_0035-2624_1976_num_58_230_T1_0373_0000.png, 1.307451923076923, 3.036070839772201, 0, 12
-../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/rnord_0035-2624_1979_num_61_241_T1_0315_0000.png, 5.61303053717506, 11.440094057969246, 0, 35
+../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/rnord_0035-2624_1976_num_58_230_T1_0373_0000.png, 1.3522209185889393, 3.125190781564943, 0, 13
+../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/rnord_0035-2624_1979_num_61_241_T1_0315_0000.png, 2.7176229605780478, 7.635218850929732, 0, 34
 ../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/rnord_0035-2624_1979_num_61_242_T1_0541_0000.png, 1.260774143595613, 3.8885974147249143, 0, 24
 ../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/rnord_0035-2624_1989_num_71_282_T1_0615_0000.png, 3.4841143690847773, 7.58399865774986, 0, 37
 ../datas/BasesDeCas/TestsAutomatiques/Interpolation1x1/rnord_0035-2624_1991_num_73_290_T1_0241_0000.png, 4.847868950342945, 7.990963403007851, 0, 32

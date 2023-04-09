@@ -3,7 +3,7 @@
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/barb_0001-4133_1929_num_15_1_T1_0046_0000.png, 1.7948288875617928, 6.12969563928284, 0, 30
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/barb_0001-4133_1939_num_25_1_T1_0123_0000.png, 1.0799241251304057, 3.786589509413043, 0, 21
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/barb_0001-4133_1941_num_27_1_T1_0032_0000.png, 1.6113373643197495, 4.914851509724817, 0, 21
-../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/barb_0001-4133_1963_num_49_1_T1_0020_0000.png, 0.8387079410739191, 3.494763896233385, 0, 21
+../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/barb_0001-4133_1963_num_49_1_T1_0020_0000.png, 0.37513325923988844, 1.7366385587084845, 0, 18
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/barb_0001-4141_1907_num_9_1_T1_0010_0000.png, 1.3648494955414598, 4.46190409355654, 0, 32
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/barb_0001-4141_1909_num_11_1_T1_0011_0000.png, 0.75914326608506, 3.3019177974677305, 0, 26
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/barb_0001-4141_1910_num_12_1_T1_0034_0000.png, 1.2967814303751803, 4.228120300441878, 0, 25
@@ -12,7 +12,7 @@
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1927_num_13_51_T1_0206_0000.png, 0.8748409305344135, 2.69005540323083, 0, 13
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1928_num_14_53_T1_0059_0000.png, 6.15294071821054, 11.759764173446484, 0, 54
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1933_num_19_75_T1_0211_0000.png, 3.4987902283414027, 8.658564653462006, 0, 47
-../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1934_num_20_78_T1_0156_0000.png, 2.2975197092728004, 5.261771019250956, 0, 18
+../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1934_num_20_78_T1_0156_0000.png, 0.9994889644419471, 2.7644420601718562, 0, 16
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1934_num_20_80_T1_0342_0000.png, 1.0935015585381123, 3.994223588608074, 0, 22
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1952_num_34_133_T1_0005_0000.png, 0.29913374681158716, 1.0962696848203308, 0, 7
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1960_num_42_167_T1_0007_0000.png, 3.511477147468703, 7.978676676634065, 0, 34
@@ -20,12 +20,12 @@
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1964_num_46_181_T1_0131_0000.png, 2.0867393008041435, 4.503452285314811, 0, 19
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1967_num_49_192_T1_0005_0000.png, 2.71095531737875, 5.992206305775786, 0, 26
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1970_num_52_204_T1_0007_0000.png, 2.31776934700671, 5.704153923676176, 0, 26
-../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1976_num_58_228_T1_0042_0000.png, 2.0414782747873987, 4.918379242098998, 0, 22
-../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1976_num_58_230_T1_0373_0000.png, 2.288229221962166, 4.963407742118446, 0, 19
-../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1979_num_61_241_T1_0315_0000.png, 5.61303053717506, 11.440094057969246, 0, 35
+../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1976_num_58_228_T1_0042_0000.png, 2.645550166698879, 6.14725179166841, 0, 22
+../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1976_num_58_230_T1_0373_0000.png, 6.766933467450053, 11.649005609108194, 0, 34
+../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1979_num_61_241_T1_0315_0000.png, 2.7176229605780478, 7.635218850929732, 0, 34
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1979_num_61_242_T1_0541_0000.png, 4.017477234032722, 8.83626404427817, 0, 31
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1989_num_71_282_T1_0615_0000.png, 1.046331364732555, 3.352612801143891, 0, 21
-../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1991_num_73_290_T1_0241_0000.png, 5.221553488941769, 9.089022894065069, 0, 36
+../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1991_num_73_290_T1_0241_0000.png, 3.989005634098544, 5.712171137642962, 0, 24
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/rnord_0035-2624_1994_num_76_306_T1_0467_0000.png, 5.433228680677236, 10.372186652741766, 0, 42
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/binet_0750-7496_1900_num_1_1_T1_0006_0000.png, 5.957677831968947, 16.092997043384937, 0, 81
 ../datas/BasesDeCas/TestsAutomatiques/Approximation2x3/binet_0750-750X_1918_num_18_120_T1_0078_0000.png, 28.64859065854366, 14.751805105821509, 0, 71

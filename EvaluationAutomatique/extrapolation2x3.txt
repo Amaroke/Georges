@@ -1,4 +1,4 @@
-Mediane : 5.28
-Ecart type : 4.18
+Mediane : 5.44
+Ecart type : 4.34
 Valeur minimale : 1.10
 Valeur maximale : 18.68
