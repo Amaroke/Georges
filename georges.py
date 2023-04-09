@@ -312,7 +312,7 @@ cursor = setup_curseur(conn)
 # On commence par la méthode par niveaux de gris simples.
 # Ouverture des fichiers dans lesquels on écrit la sortie du programme
 fichier_reponses = open("reponses.txt", "w")
-fichier_triplets = open("approximation1x1.txt", "w")
+fichier_triplets = open("approximation1x1.txt", "a")
 
 stockage_triplets = dict()
 stockage_reponse_score = dict()
@@ -341,7 +341,7 @@ print("Recherche par niveau de gris basique terminée, résultats écrits dans l
 # MAT
 # On passe à la méthode par matrice
 fichier_reponses_2 = open("reponses2.txt", "w")
-fichier_triplets_2 = open("approximation2x3.txt", "w")
+fichier_triplets_2 = open("approximation2x3.txt", "a")
 
 requete = """select P.page_id, point_noir, point_blanc, gamma, haut_gauche, haut_milieu, haut_droite, bas_gauche, bas_milieu, bas_droite, fascicule_id 
                 from page as P, matrice as M, triplet as T 
@@ -398,7 +398,7 @@ print("Recherche par matrice 2*3 terminée, résultats écrits dans le fichier '
 
 # ANA
 fichier_reponses_3 = open("reponses3.txt", "w")
-fichier_triplets_3 = open("extrapolation1x1.txt", "w")
+fichier_triplets_3 = open("extrapolation1x1.txt", "a")
 
 # On prépare les requêtes qui récupèrent les données de la BDD
 # TODO : Remplacer par une requête plus efficace, cf requete ANA 2*3.
@@ -464,7 +464,7 @@ print("Recherche par analogie 1*1 terminée, résultats écrits dans le fichier 
 
 # ANA
 fichier_reponses = open("reponses4.txt", "w")
-fichier_triplets_4 = open("extrapolation2x3.txt", "w")
+fichier_triplets_4 = open("extrapolation2x3.txt", "a")
 
 # Requete qui récupère les données de la BDD
 requete = """SELECT *
@@ -540,7 +540,7 @@ cursor = setup_curseur(conn)
 # On commence par la méthode par niveaux de gris simples.
 # Ouverture des fichiers dans lesquels on écrit la sortie du programme
 fichier_reponses = open("reponses5.txt", "w")
-fichier_triplets_5 = open("interpolation1x1.txt", "w")
+fichier_triplets_5 = open("interpolation1x1.txt", "a")
 
 # On recherche le fichier le plus similaire à chaque page du fascicule cible et on écrit la réponse dans le fichier réponse.
 for i in range(len(tab_fichiers_traites)):
@@ -598,7 +598,7 @@ cursor = setup_curseur(conn)
 
 # Ouverture des fichiers dans lesquels on écrit la sortie du programme
 fichier_reponses = open("reponses6.txt", "w")
-fichier_triplets_6 = open("interpolation2x3.txt", "w")
+fichier_triplets_6 = open("interpolation2x3.txt", "a")
 
 x = 20
 # cf. explication dans le rapport
