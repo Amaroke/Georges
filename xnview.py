@@ -459,7 +459,7 @@ def lookup(pixel, params, delta, invGamma):
 
 def appliquer_triplets_base_automatique(fichier, noir, blanc, gamma, methode):
     # Ouvrir l'image et la convertir en tableau NumPy
-    image = np.array(Image.open("../datas/BasesDeCas/TestsAutomatiques/Origine/" + fichier).convert("L"))
+    image = np.array(Image.open("./datas/BasesDeCas/TestsAutomatiques/Origine/" + fichier).convert("L"))
 
     # Appliquer le point noir et le point blanc
     image = np.where(image <= noir, 0, image)
@@ -480,12 +480,12 @@ def appliquer_triplets_base_automatique(fichier, noir, blanc, gamma, methode):
     image = Image.fromarray(image.astype(np.uint8))
 
     # Sauvegarder l'image modifiée
-    image.save("../datas/BasesDeCas/TestsAutomatiques/" + methode + "/" + fichier)
+    image.save("./datas/BasesDeCas/TestsAutomatiques/" + methode + "/" + fichier)
 
 
 def appliquer_triplets_base_manuelle(fichier, noir, blanc, gamma, methode):
     # Ouvrir l'image et la convertir en tableau NumPy
-    image = np.array(Image.open("../datas/BasesDeCas/TestsManuels/Origine/" + fichier).convert("L"))
+    image = np.array(Image.open("./datas/BasesDeCas/TestsManuels/Origine/" + fichier).convert("L"))
 
     # Appliquer le point noir et le point blanc
     image = np.where(image <= noir, 0, image)
@@ -506,7 +506,7 @@ def appliquer_triplets_base_manuelle(fichier, noir, blanc, gamma, methode):
     image = Image.fromarray(image.astype(np.uint8))
 
     # Sauvegarder l'image modifiée
-    image.save("../datas/BasesDeCas/TestsManuels/" + methode + "/" + fichier)
+    image.save("./datas/BasesDeCas/TestsManuels/" + methode + "/" + fichier)
 
 
 # Définir une fonction pour générer des images en appliquant des triplets de base automatique
