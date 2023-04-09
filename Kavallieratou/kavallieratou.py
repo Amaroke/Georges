@@ -34,6 +34,34 @@ def traitement_kavallieratou(nom_image, chemin):
         plt.imsave(f'{nom_image}/iteration{i}.png', img_array, cmap='gray')
 
 
+traitement_kavallieratou("barb_0001-4141_1910_num_12_1_F_0002_0000",
+                     "../datas/Fascicules/barb_0001-4141_1910_num_12_1/Pages_volume/GreyScale/barb_0001"
+                     "-4141_1910_num_12_1_F_0002_0000.png")
+
 traitement_kavallieratou("rnord_0035-2624_1989_num_71_282_T1_0687_0000",
-                         "../datas/Fascicules/rnord_0035-2624_1989_num_71_282/Pages_volume/GreyScale/rnord_0035"
-                         "-2624_1989_num_71_282_T1_0687_0000.png")
+                     "../datas/Fascicules/rnord_0035-2624_1989_num_71_282\Pages_volume\GreyScale/rnord_0035"
+                     "-2624_1989_num_71_282_T1_0687_0000.png")
+
+traitement_kavallieratou("rnord_0035-2624_1991_num_73_290_T1_0436_0000",
+                     "../datas/Fascicules/rnord_0035-2624_1991_num_73_290\Pages_volume\GreyScale/rnord_0035"
+                     "-2624_1991_num_73_290_T1_0436_0000.png")
+
+traitement_kavallieratou("rnord_0035-2624_1994_num_76_306_T1_0471_0000",
+                     "../datas/Fascicules/rnord_0035-2624_1994_num_76_306\Pages_volume\GreyScale/rnord_0035"
+                     "-2624_1994_num_76_306_T1_0471_0000.png")
+
+traitement_kavallieratou("rnord_0035-2624_1994_num_76_306_T1_0564_0000",
+                     "../datas/Fascicules/rnord_0035-2624_1994_num_76_306\Pages_volume\GreyScale/rnord_0035"
+                     "-2624_1994_num_76_306_T1_0564_0000.png")
+
+traitement_kavallieratou("baip_1254-0714_1880_num_23_449_T2_0100_0000",
+                     "../Kavallieratou/tampons/baip_1254"
+                     "-0714_1880_num_23_449_T2_0100_0000.png")
+
+traitement_kavallieratou("baip_1254-0714_1880_num_23_449_T2_0001_0000",
+                     "../Kavallieratou/tampons/baip_1254"
+                     "-0714_1880_num_23_449_T2_0001_0000.png")
+
+traitement_kavallieratou("baip_1254-0714_1880_num_23_449_T2_0099_0000",
+                     "../Kavallieratou/tampons/baip_1254"
+                     "-0714_1880_num_23_449_T2_0001_0000.png")
