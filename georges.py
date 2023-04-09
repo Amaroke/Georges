@@ -629,7 +629,7 @@ for i in range(len(tab_fichiers_traites)):
                             calcul_diff_matrice(tab_moyennes_matrice[i], matrice_couple_b)) > 0 and produit_scalaire(
             inverse(diff_couple), calcul_diff_matrice(tab_moyennes_matrice[i], matrice_couple_c)) > 0:
             tab_couples_valides.append(couple)
-
+    
     # On calcule les distances itgt à h pour chaque couple valide, on ne retiens que le couple avec la plus petite distance.
     dist_min = sys.maxsize
     couple_min = None
@@ -641,39 +641,41 @@ for i in range(len(tab_fichiers_traites)):
             dist_min = dist
             couple_min = couple
 
-    # On calcule la distance ib à h pour le couple avec la plus petite distance.
-    matrice_couple_b = (
-        couple_min[0][1], couple_min[0][2], couple_min[0][3], couple_min[0][4], couple_min[0][5], couple_min[0][6])
-    dist_b_h = distance_b_h(matrice_couple_b, tab_moyennes_matrice[i], dist_min)
-    dist_b_c = calcul_somme_diff_matrice_dist2(matrice_couple_b, (
-        couple_min[1][1], couple_min[1][2], couple_min[1][3], couple_min[1][4], couple_min[1][5], couple_min[1][6]))
+    if couple_min is not None:
+        # On calcule la distance ib à h pour le couple avec la plus petite distance.
+        matrice_couple_b = (couple_min[0][1], couple_min[0][2], couple_min[0][3], couple_min[0][4], couple_min[0][5], couple_min[0][6])
+        dist_b_h = distance_b_h(matrice_couple_b, tab_moyennes_matrice[i], dist_min)
+        dist_b_c = calcul_somme_diff_matrice_dist2(matrice_couple_b, (
+            couple_min[1][1], couple_min[1][2], couple_min[1][3], couple_min[1][4], couple_min[1][5], couple_min[1][6]))
 
-    # On applique l'interpolation sur les triplets pour obtenir une contrainte et une valeur exacte du triplet.
-    # Contrainte
-    triplet_string_b = "(" + str(couple_min[0][7]) + ", " + \
-                       str(couple_min[0][8]) + ", " + str(couple_min[0][9]) + ")"
-    pn_b = couple_min[0][7]
-    pb_b = couple_min[0][8]
-    gamma_b = couple_min[0][9]
+        # On applique l'interpolation sur les triplets pour obtenir une contrainte et une valeur exacte du triplet.
+        # Contrainte
+        triplet_string_b = "(" + str(couple_min[0][7]) + ", " + \
+                        str(couple_min[0][8]) + ", " + str(couple_min[0][9]) + ")"
+        pn_b = couple_min[0][7]
+        pb_b = couple_min[0][8]
+        gamma_b = couple_min[0][9]
 
-    triplet_string_c = "(" + str(couple_min[1][7]) + ", " + \
-                       str(couple_min[1][8]) + ", " + str(couple_min[1][9]) + ")"
-    pn_c = couple_min[1][7]
-    pb_c = couple_min[1][8]
-    gamma_c = couple_min[1][9]
+        triplet_string_c = "(" + str(couple_min[1][7]) + ", " + \
+                        str(couple_min[1][8]) + ", " + str(couple_min[1][9]) + ")"
+        pn_c = couple_min[1][7]
+        pb_c = couple_min[1][8]
+        gamma_c = couple_min[1][9]
 
-    # Intervalle
-    pn_tgt = calcul_barycentre(pn_b, pn_c, dist_b_h, dist_b_c)
-    pb_tgt = calcul_barycentre(pb_b, pb_c, dist_b_h, dist_b_c)
-    gamma_tgt = calcul_barycentre(gamma_b, gamma_c, dist_b_h, dist_b_c)
+        # Intervalle
+        pn_tgt = calcul_barycentre(pn_b, pn_c, dist_b_h, dist_b_c)
+        pb_tgt = calcul_barycentre(pb_b, pb_c, dist_b_h, dist_b_c)
+        gamma_tgt = calcul_barycentre(gamma_b, gamma_c, dist_b_h, dist_b_c)
 
-    triplet_string_tgt = "(" + str(pn_tgt) + ", " + \
-                         str(pb_tgt) + ", " + str(gamma_tgt) + ")"
+        triplet_string_tgt = "(" + str(pn_tgt) + ", " + \
+                            str(pb_tgt) + ", " + str(gamma_tgt) + ")"
 
-    fichier_reponses.write(tab_fichiers_traites[i] + " -> " + triplet_string_tgt +
-                           " -> [" + triplet_string_b + ", " + triplet_string_c + "]\n")
-    fichier_triplets_6.write(
-        "[\"" + tab_fichiers_traites[i] + "\"" + ", " + str(int(pn_tgt)) + ", " + str(int(pb_tgt)) + ", {:.2f}],\n".format(gamma_tgt))
+        fichier_reponses.write(tab_fichiers_traites[i] + " -> " + triplet_string_tgt +
+                            " -> [" + triplet_string_b + ", " + triplet_string_c + "]\n")
+        fichier_triplets_6.write(
+            "[\"" + tab_fichiers_traites[i] + "\"" + ", " + str(int(pn_tgt)) + ", " + str(int(pb_tgt)) + ", {:.2f}],\n".format(gamma_tgt))
+    else:
+        fichier_reponses.write("Pas de couple valide pour le fichier " + tab_fichiers_traites[i] + ".\n")
 
 fichier_reponses.close()
 print("Recherche par interpolation 2*3 terminée, résultats écrits dans le fichier 'reponses6.txt'.")
