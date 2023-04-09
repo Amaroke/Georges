@@ -168,14 +168,14 @@ def calcul_somme_diff_matrice_dist2(m1, m2):
 
 
 def remplirBDD(conn):
-    xlsx_file = Path('datas/Triplets.xlsx')
+    xlsx_file = Path('../datas/Triplets.xlsx')
     wb_obj = openpyxl.load_workbook(xlsx_file)
     sheet = wb_obj.active
 
     mot_choisi = "de"
 
-    fascicules = os.path.join(os.getcwd(), "datas", "Fascicules")
-    ocr = os.path.join(os.getcwd(), "datas", "OCR")
+    fascicules = os.path.join(os.getcwd(), "../datas", "Fascicules")
+    ocr = os.path.join(os.getcwd(), "../datas", "OCR")
 
     for dossier in os.listdir(fascicules):
         if os.path.isdir(os.path.join(fascicules, dossier)):

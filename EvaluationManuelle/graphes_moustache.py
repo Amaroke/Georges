@@ -18,7 +18,6 @@ with open('astier.csv') as csvfile:
     next(reader, None)
     for row in reader:
         row = [elem.strip() for elem in row]
-        print(row)
         # Ajouter la valeur à la liste appropriée en fonction de la méthode
         if row[0].split("_")[-1] == 'approximation1x1':
             approximation1x1_data.append(random.randint(0, 4))
@@ -39,6 +38,8 @@ with open('astier.csv') as csvfile:
 data = [approximation1x1_data, approximation2x3_data, extrapolation1x1_data,
         extrapolation2x3_data, interpolation1x1_data, interpolation2x3_data,
         persee_data]
+
+
 
 # Liste des noms de méthodes
 method_names = ['approximation1x1', 'approximation2x3', 'extrapolation1x1',

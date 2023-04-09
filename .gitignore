@@ -1,4 +1,4 @@
-config.ini
+DB/config.ini
 /.idea/
 /datas/
 /venv/
@@ -12,11 +12,11 @@ reponses5.txt
 donnees.csv
 scores.csv
 /Résultats/
-/Statistiques/de_png/
-/Statistiques/resultat.png
-/Statistiques/fusion_de.png
-/Statistiques/de_images_matrices/
-/Statistiques/de_niveau_gris/
+/Statistiques_de/de_png/
+/Statistiques_de/resultat.png
+/Statistiques_de/fusion_de.png
+/Statistiques_de/de_images_matrices/
+/Statistiques_de/de_niveau_gris/
 .vscode/settings.json
 /EvaluationAutomatique/tableaux_bases_de_cas.py
 /Kavallieratou/barb_0001-4133_1920_num_6_1_T1_0035_0000/
