@@ -61,7 +61,3 @@ traitement_kavallieratou("baip_1254-0714_1880_num_23_449_T2_0100_0000",
 traitement_kavallieratou("baip_1254-0714_1880_num_23_449_T2_0001_0000",
                      "../Kavallieratou/tampons/baip_1254"
                      "-0714_1880_num_23_449_T2_0001_0000.png")
-
-traitement_kavallieratou("baip_1254-0714_1880_num_23_449_T2_0099_0000",
-                     "../Kavallieratou/tampons/baip_1254"
-                     "-0714_1880_num_23_449_T2_0001_0000.png")
