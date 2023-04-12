@@ -239,8 +239,21 @@ def remplirBDDAnalogie(conn):
     db_name = config.get('settings', 'database')
     cursor.execute("USE " + db_name)
 
+    # Requête qui récupère 2 pages pour chaque fascicule différent.
+    requete = """SELECT *
+                FROM Page
+                WHERE page_id IN (
+                    SELECT MIN(page_id)
+                    FROM Page
+                    GROUP BY fascicule_id
+                    UNION ALL
+                    SELECT MAX(page_id)
+                    FROM Page
+                    GROUP BY fascicule_id
+                );"""
+
     # Requête qui récupère toutes les pages dont le page_id commence par 0011 ou 0012.
-    requete = """SELECT * FROM page WHERE page_id LIKE '%0011%' OR page_id LIKE '%0012%'"""
+    #requete = """SELECT * FROM page WHERE page_id LIKE '%0011%' OR page_id LIKE '%0012%'"""
     cursor.execute(requete)
     resultat = cursor.fetchall()
 

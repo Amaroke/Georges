@@ -217,7 +217,7 @@ mot_choisi = "de"
 # à cet input)
 
 chemin = os.path.join(os.getcwd(), "datas", "Fascicules",
-                      id_fascicule, "Pages_volume", "GreyScales")
+                      id_fascicule, "Pages_volume", "GreyScale")
 chemin_archive = os.path.join(os.getcwd(), "datas", "OCR", id_fascicule)
 
 # Initialisations des structures de données et variables nécessaires au stockage de données sur les images.
