@@ -14,7 +14,7 @@ persee_data = []
 bests = [0, 0, 0, 0, 0, 0, 0]
 
 # Ouvrir le fichier CSV et lire les données ligne par ligne
-with open('astier.csv') as csvfile:
+with open('fichier.csv') as csvfile: # Modifier cette ligne pour traiter des résultats différents
     reader = csv.reader(csvfile)
     # Ignorer la première ligne si elle contient des en-têtes
     next(reader, None)
